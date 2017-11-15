@@ -1,4 +1,10 @@
+-- ------------------------------------------------------------- [ Field.idr ]
+-- Module      : NumIdris.Field
+-- Description : Definitions for the interface Field
+--
+--------------------------------------------------------------------- [ EOH ]
 module NumIdris.Field
+
 
 %access public export
 
