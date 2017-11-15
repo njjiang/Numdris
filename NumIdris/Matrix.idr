@@ -97,7 +97,8 @@ determinant (x :: xs) = ?detRec
 trace : (Field t) => (m : Matrix (S n) (S n) t) -> t
 trace m = foldl1 (+) (diag m)
 
--- inverse : (Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
+inverse : (Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
+inverse = ?inverse
 
 
 ||| add two matrices
