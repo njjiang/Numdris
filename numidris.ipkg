@@ -1,1 +1,8 @@
 package NumIdris
+
+pkgs = specdris
+
+
+modules = NumIdris.Field
+          NumIdris.Matrix
+          NumIdris.Vector

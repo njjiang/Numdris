@@ -1,0 +1,10 @@
+package NumIdris
+
+pkgs = specdris
+
+modules = NumIdris.Matrix
+        , Test.MatrixTest
+        , Test.VectorTest
+
+tests = Test.MatrixTest.specSuite
+      , Test.VectorTest.specSuite
