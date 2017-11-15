@@ -90,15 +90,16 @@ determinant {n = S Z} (x :: xs) = (head x)
 determinant {n = S (S Z)} m = let ad = entry FZ FZ m * entry (FS FZ) (FS FZ) m
                                   bc = entry (FS FZ) FZ m * entry FZ (FS FZ) m in
                                   ad - bc
-determinant (x :: xs) = ?detRec
+determinant (x :: xs) = ?detRec_rhs
 
 ||| calculate the trace of a matrix
 ||| @ m the matrix
 trace : (Field t) => (m : Matrix (S n) (S n) t) -> t
 trace m = foldl1 (+) (diag m)
 
+||| calculate the inverse of a matrix
 inverse : (Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
-inverse = ?inverse
+inverse = ?inverse_rhs
 
 
 ||| add two matrices
