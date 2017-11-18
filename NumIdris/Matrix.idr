@@ -23,21 +23,28 @@ Matrix r c t = Vect r (Vect c t)
 ||| get the row of matrix by index
 ||| @ i index of the row to get
 ||| @ m the matrix
-row : (i : Fin r) -> (m : Matrix r c t) -> Vect c t
-row i m = index i m
+getRow : (i : Fin r) -> (m : Matrix r c t) -> Vect c t
+getRow i m = index i m
 
 ||| get the column of matrix by index
 |||adds two natural numbers| @ j index of the column to get
 ||| @ m the matrix
-column : (j : Fin c) -> (m : Matrix r c t) -> Vect r t
-column j m = map (index j) m
+getColumn : (j : Fin c) -> (m : Matrix r c t) -> Vect r t
+getColumn j m = map (index j) m
 
 ||| get an entry at position (i, j) of a matrix
 ||| @ i index of the row position to get
 ||| @ j index of the column position to get
 ||| @ m the matrix
-entry : (i : Fin r) -> (j : Fin c) -> (m : Matrix r c t) -> t
-entry i j m = (index j . index i) m
+entry' : (i : Fin r) -> (j : Fin c) -> (m : Matrix r c t) -> t
+entry' i j m = (index j . index i) m
+
+||| get an entry at position (i, j) of a matrix
+entry : (Fin r, Fin c) -> (m : Matrix r c t) -> t
+entry (i,j) m = (index j . index i) m
+
+entryIndex : Eq t => t -> Matrix r c t -> Maybe (Fin r, Fin c)
+entryIndex e m = ?entryIndex_rhs
 
 ||| deleadds two natural numberste a column at a position
 ||| adds two natural numbers@ j index of the column to delete
@@ -69,9 +76,21 @@ insertColumnAt j column m = zipWith (insertAt j) column m
 ||| @ i the row to delete
 ||| @ j the column to delete
 ||| @ m the matrix to delete from
-submatrix: (i : Fin (S r)) -> (j : Fin (S c)) -> (m : Matrix (S r) (S c) t) -> Matrix r c t
+submatrix : (i : Fin (S r)) -> (j : Fin (S c)) -> (m : Matrix (S r) (S c) t) -> Matrix r c t
 submatrix i j m = (deleteRowAt i . deleteColumnAt j) m
 
+||| get a vector of indices/fins of length n
+||| @ n length of the vector
+fins : (n : Nat) -> Vect n (Fin n)
+fins Z = Nil
+fins (S n) = FZ :: map FS (fins n)
+
+zerosM : (Num t, Field t) => (n : Nat) -> Matrix n n t
+zerosM n = replicate n (Vector.zeros n)
+
+||| construct an n x n identity matrix
+identityM : (Num t, Field t) => (n : Nat) -> Matrix n n t
+identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n)
 
 ||| cofactor expansion along the first column
 -- detRec : (Field t) => (m : Matrix (S k) (S k) t) -> t
@@ -87,8 +106,8 @@ submatrix i j m = (deleteRowAt i . deleteColumnAt j) m
 determinant : (Field t) => (m : Matrix n n t) -> t
 determinant Nil = zero
 determinant {n = S Z} (x :: xs) = (head x)
-determinant {n = S (S Z)} m = let ad = entry FZ FZ m * entry (FS FZ) (FS FZ) m
-                                  bc = entry (FS FZ) FZ m * entry FZ (FS FZ) m in
+determinant {n = S (S Z)} m = let ad = entry (FZ   , FZ) m * entry (FS FZ, FS FZ) m
+                                  bc = entry (FS FZ, FZ) m * entry (FZ   , FS FZ) m in
                                   ad - bc
 determinant (x :: xs) = ?detRec_rhs
 
@@ -114,3 +133,108 @@ add = zipWith Vector.add
 multiply : (Field t) => (m1: Matrix r c t) -> (m2 : Matrix c r' t) -> Matrix r r' t
 multiply m1 m2 = let m2' = transpose m2 in
         map (\row => map(\col => (dot row col)) m2') m1
+
+
+||| get the max element along a row in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ row the index of the row
+maxAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
+maxAlongRow m row = Vector.max $ getRow row m
+
+||| get the min element along a row in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ row the index of the row
+minAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
+minAlongRow m row = Vector.min $ getRow row m
+
+||| get the max element along a column in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ col the index of the column
+maxAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
+maxAlongColumn m col = Vector.max $ getColumn col m
+
+||| get the min element along a column in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ col the index of the column
+minAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
+minAlongColumn m col = Vector.min $ getColumn col m
+
+||| get the argmax element along a row in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ row the index of the row
+argmaxAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> (Fin (S r), Fin (S c))
+argmaxAlongRow m row = let col = Vector.argmax $ getRow row m in
+                       (row, col)
+||| get the argmin element along a row in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ row the index of the row
+argminAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> (Fin (S r), Fin (S c))
+argminAlongRow m row = let col = Vector.argmin $ getRow row m in
+                       (row, col)
+
+||| get the argmax element along a column in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ col the index of the column
+argmaxAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> (Fin (S r), Fin (S c))
+argmaxAlongColumn m col = let row = Vector.argmax $ getColumn col m in
+                              (row, col)
+
+||| get the argmin element along a column in a matrix
+||| undefined for empty matrix
+||| @ m the matrix
+||| @ col the index of the column
+argminAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> (Fin (S r), Fin (S c))
+argminAlongColumn m col = let row = Vector.argmin $ getColumn col m in
+                          (row, col)
+
+||| sum along row
+sumAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
+sumAlongRow m row = Vector.sum $ getRow row m
+
+||| product along column
+sumAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
+sumAlongColumn m col = Vector.sum $ getColumn col m
+
+||| product along row
+productAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
+productAlongRow m row = Vector.product $ getRow row m
+
+||| product along column
+productAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
+productAlongColumn m col = Vector.product $ getColumn col m
+
+||| flatten a r x c matrix to a vector of length r * c
+flatten : (Field t) => (m : Matrix r c t) -> Vect (r * c) t
+flatten m = concat m
+
+||| resize a matrix to a
+padM : (Field t) => (m : Matrix r c t) -> (r' : Nat) -> (c' : Nat) -> (elem :t) -> Matrix (r + r') (c + c') t
+padM {c} m r' c' elem = let m' = map (\row => pad row elem c') m in
+                        m' ++ replicate r' (replicate (c + c') elem)
+
+||| take the upperleft r x c submatrix of matrix m
+||| @ m original matrix
+||| @ r the number of row in the submatrix
+||| @ c the number of column in the submatrix
+takeM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r c t
+takeM r c m = take r (map (take c) m)
+
+
+||| drop the upperleft r x c submatrix of matrix m
+||| @ m original matrix
+||| @ r the number of row in the submatrix
+||| @ c the number of column in the submatrix
+dropM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r' c' t
+dropM r c m = drop r (map (drop c) m)
+
+
+-- clipping, vector and matrix
+-- basis
+-- gaussian elimination
