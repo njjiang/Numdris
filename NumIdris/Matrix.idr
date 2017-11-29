@@ -8,6 +8,7 @@
 module NumIdris.Matrix
 
 import Data.Vect as V
+import Data.Complex as C
 import NumIdris.Field
 import NumIdris.Vector
 
@@ -17,7 +18,7 @@ import NumIdris.Vector
 ||| @ r number of rows in the matrix
 ||| @ c number of columns in the matrix
 ||| @ t type of the data the matrix contains
-Matrix : (Num t, Field t) => (r : Nat) -> (c : Nat) -> (t : Type) -> Type
+Matrix : (Num t) => (r : Nat) -> (c : Nat) -> (t : Type) -> Type
 Matrix r c t = Vect r (Vect c t)
 
 ||| get the row of matrix by index
@@ -42,6 +43,15 @@ entry' i j m = (index j . index i) m
 ||| get an entry at position (i, j) of a matrix
 entry : (Fin r, Fin c) -> (m : Matrix r c t) -> t
 entry (i,j) m = (index j . index i) m
+
+||| set entry of a matrix to be some element
+||| @ m the original matrix
+||| @ index the index to be replaced
+||| @ elem the new element to replace with
+replaceEntry : (index : (Fin r, Fin c)) -> (elem : t) -> (m : Matrix r c t) -> Matrix r c t
+replaceEntry (i,j) elem m = let rowi = getRow i m
+                                replacej = replaceAt j elem rowi in
+                            replaceAt i replacej m
 
 entryIndex : Eq t => t -> Matrix r c t -> Maybe (Fin r, Fin c)
 entryIndex e m = ?entryIndex_rhs
@@ -85,12 +95,38 @@ fins : (n : Nat) -> Vect n (Fin n)
 fins Z = Nil
 fins (S n) = FZ :: map FS (fins n)
 
-zerosM : (Num t, Field t) => (n : Nat) -> Matrix n n t
-zerosM n = replicate n (Vector.zeros n)
+||| get a list of indices
+indices : (r : Nat) -> (c : Nat) -> Vect (r*c) (Fin r, Fin c)
+indices r c = concat indicesMatrix where
+              rfins : Vect r (Fin r)
+              rfins = fins r
+              cfins : Vect c (Fin c)
+              cfins = fins c
+              distribute : Fin r -> Vect n (Fin c) -> Vect n (Fin r, Fin c)
+              distribute elem v = map (\x => (elem, x)) v
+              indicesMatrix : Matrix r c (Fin r ,Fin c)
+              indicesMatrix = map (\x => distribute x cfins) rfins
+
+
+iterateM : (f : t -> t') -> (m : Matrix r c t) -> Matrix r c t'
+iterateM f m = map (\row => map f row) m
+
+||| construct a r x c matrix filled with zero
+zerosM : (Num t) => (r : Nat) -> (c : Nat) -> Matrix r c t
+zerosM r c = replicate r (Vector.zeros c)
 
 ||| construct an n x n identity matrix
 identityM : (Num t, Field t) => (n : Nat) -> Matrix n n t
-identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n)
+identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n n)
+
+
+||| construct a r x c matrix with some element at position (i,j) and zero everywhere else
+||| @ r number of rows of the matrix
+||| @ c number of columns of the matrix
+||| @ index index of the specific element
+||| @ elem the specific element
+EijM : (Num t, Field t) => (r : Nat) -> (c : Nat) -> (index : (Fin r, Fin c)) -> (elem : t)-> Matrix r c t
+EijM r c index elem = replaceEntry index elem (zerosM r c)
 
 ||| cofactor expansion along the first column
 -- detRec : (Field t) => (m : Matrix (S k) (S k) t) -> t
@@ -133,6 +169,7 @@ add = zipWith Vector.add
 multiply : (Field t) => (m1: Matrix r c t) -> (m2 : Matrix c r' t) -> Matrix r r' t
 multiply m1 m2 = let m2' = transpose m2 in
         map (\row => map(\col => (dot row col)) m2') m1
+
 
 
 ||| get the max element along a row in a matrix
@@ -214,7 +251,7 @@ productAlongColumn m col = Vector.product $ getColumn col m
 flatten : (Field t) => (m : Matrix r c t) -> Vect (r * c) t
 flatten m = concat m
 
-||| resize a matrix to a
+||| expand a matrix with some padding elements
 padM : (Field t) => (m : Matrix r c t) -> (r' : Nat) -> (c' : Nat) -> (elem :t) -> Matrix (r + r') (c + c') t
 padM {c} m r' c' elem = let m' = map (\row => pad row elem c') m in
                         m' ++ replicate r' (replicate (c + c') elem)
@@ -234,7 +271,25 @@ takeM r c m = take r (map (take c) m)
 dropM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r' c' t
 dropM r c m = drop r (map (drop c) m)
 
+||| standard basis of a matrix
+basis : (Field t, Num t) => (m : Matrix r c t) -> Vect (r * c) (Matrix r c t)
+basis {r} {c} m = map (\ij => EijM r c ij one) (indices r c)
 
 -- clipping, vector and matrix
--- basis
--- gaussian elimination
+
+
+-----------------------------------------------------------------------
+--                        Complex field operations
+-----------------------------------------------------------------------
+
+real : Num t => (m : Matrix r c (Complex t)) -> Matrix r c t
+real m = iterateM C.realPart m
+
+imaginary : Num t => (m : Matrix r c (Complex t)) -> Matrix r c t
+imaginary m = iterateM C.imagPart m
+
+conjugate : (Neg t, Num t) => (m : Matrix r c (Complex t)) -> Matrix r c (Complex t)
+conjugate m = iterateM C.conjugate m
+
+conjugateTranspose : (Neg t, Num t) => (m : Matrix r c (Complex t)) -> Matrix c r (Complex t)
+conjugateTranspose m = conjugate $ transpose m

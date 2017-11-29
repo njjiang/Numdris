@@ -21,8 +21,3 @@ Field Double where
   zero = 0
   one = 1
   inv = negate
-
-
-zeroIsZero : (Field a) => (x : a) -> zero = zero * x
-
-oneIsIdentity : (Field a) => (x : a) -> x = x * one

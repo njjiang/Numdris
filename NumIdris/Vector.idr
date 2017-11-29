@@ -83,8 +83,8 @@ inner = dot
 -- ||| take the outer product of two vectors
 -- ||| @ v1 first vector
 -- ||| @ v2 second vector
--- outer : (Num t, Field t) => (v1 : Vect len1 t) -> (v2 : Vect len2 t) -> Vect len1 (Vect len2 t)
--- outer v1 v2 = map (\x => map (* x) v2) v1
+outer : (Num t, Field t) => (v1 : Vect len1 t) -> (v2 : Vect len2 t) -> Vect len1 (Vect len2 t)
+outer v1 v2 = map (\x => map (* x) v2) v1
 
 ||| transpose a column vector to a row vector
 ||| @ v the column vector
