@@ -85,11 +85,9 @@ complexSpec = describe "Test complex fields operations" $ do
               it "take imag part" $ do
                  imaginary m3 `shouldBe` (fill 2 2 2)
               it "take conjugate" $ do
-                 conjuagte m4c `shouldBe` (iterateM (:+ -1) m4)
+                 conjugate m4c `shouldBe` (iterateM (:+ -1) m4)
               it "take conjugate transpose" $ do
-                 conjuagteTranspose m4c `shouldBe` m4cconjtrans
-
-
+                 conjugateTranspose m4c `shouldBe` m4cconjtrans
 
 
 specSuite : IO ()
