@@ -111,6 +111,10 @@ indices r c = concat indicesMatrix where
 iterateM : (f : t -> t') -> (m : Matrix r c t) -> Matrix r c t'
 iterateM f m = map (\row => map f row) m
 
+||| fill a r x c matrix with some element
+fill : (Num t) => (elem :t) -> (r : Nat) -> (c : Nat) -> Matrix r c t
+fill elem r c = replicate r (replicate c elem)
+
 ||| construct a r x c matrix filled with zero
 zerosM : (Num t) => (r : Nat) -> (c : Nat) -> Matrix r c t
 zerosM r c = replicate r (Vector.zeros c)

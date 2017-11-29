@@ -5,6 +5,8 @@ pkgs = specdris
 modules = NumIdris.Matrix
         , Test.MatrixTest
         , Test.VectorTest
+        , Test.NDVectTest
 
 tests = Test.MatrixTest.specSuite
       , Test.VectorTest.specSuite
+      , Test.NDVectTest.specSuite

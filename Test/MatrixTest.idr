@@ -2,6 +2,7 @@ module Test.MatrixTest
 import Specdris.Spec
 
 import Data.Vect as Vect
+import Data.Complex
 import NumIdris.Matrix
 import NumIdris.Field
 
@@ -18,15 +19,23 @@ m2 : Matrix 2 2 Integer
 m2 = Vect.fromList [[3,4]
                    ,[5,6]]
 
+basis6 : Vect 6 (Vect 2 (Vect 3 Integer))
+basis6 = Vect.fromList([[[1, 0, 0], [0, 0, 0]],
+[[0, 1, 0], [0, 0, 0]],
+[[0, 0, 1], [0, 0, 0]],
+[[0, 0, 0], [1, 0, 0]],
+[[0, 0, 0], [0, 1, 0]],
+[[0, 0, 0], [0, 0, 1]]])
+
 
 basicSpec : SpecTree
 basicSpec = describe "Test some basic manipulations" $ do
             it "take the first row" $ do
-               row FZ m1 `shouldBe` (Vect.fromList [1,2])
+               getRow FZ m1 `shouldBe` (Vect.fromList [1,2])
             it "take the second column" $ do
-               column (FS FZ) m2 `shouldBe` (Vect.fromList [4, 6])
+               getColumn (FS FZ) m2 `shouldBe` (Vect.fromList [4, 6])
             it "take an entry" $ do
-               entry FZ (FS FZ) m2 `shouldBe` 4
+               entry (FZ, (FS FZ)) m2 `shouldBe` 4
             it "delete a row" $ do
                deleteRowAt FZ m1 `shouldBe` (Vect.fromList [[3,4]])
             it "delete a column" $ do
@@ -35,6 +44,13 @@ basicSpec = describe "Test some basic manipulations" $ do
                insertRowAt (FS FZ) (fromList [0,0]) m1 `shouldBe` (Vect.fromList [[1,2],[0,0],[3,4]])
             it "insert a column" $ do
                insertColumnAt (FS FZ) (fromList [0,0])m1 `shouldBe` (Vect.fromList [[1,0,2], [3,0,4]])
+            it "identity matrix" $ do
+               identityM 3 `shouldBe` (fromList [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+            it "replace entry" $ do
+               replaceEntry (FZ, FZ) 1 (zerosM 2 2) `shouldBe` (Vect.fromList [[1, 0], [0, 0]] )
+            it "standard basis" $ do
+               basis (zerosM 2 3) `shouldBe` basis6
+
 
 
 algebraSpec : SpecTree
@@ -45,7 +61,39 @@ algebraSpec = describe "Test matrix algebra" $ do
                  (multiply m1 m2) `shouldBe` (Vect.fromList [[13, 16], [29, 36]] )
 
 
+m3 : Matrix 2 2 (Complex Integer)
+m3 = iterateM (:+ 2) m1
+
+m4 : Matrix 2 3 Integer
+m4 = fill 20 2 3
+
+m4t : Matrix 3 2 Integer
+m4t = fill 20 3 2
+
+m4c : Matrix 2 3 (Complex Integer)
+m4c = iterateM (:+ 1) m4
+
+m4cconjtrans : Matrix 3 2 (Complex Integer)
+m4cconjtrans = iterateM (:+ -1) m4t
+
+
+
+complexSpec : SpecTree
+complexSpec = describe "Test complex fields operations" $ do
+              it "take real part" $ do
+                 real m3 `shouldBe` m1
+              it "take imag part" $ do
+                 imaginary m3 `shouldBe` (fill 2 2 2)
+              it "take conjugate" $ do
+                 conjuagte m4c `shouldBe` (iterateM (:+ -1) m4)
+              it "take conjugate transpose" $ do
+                 conjuagteTranspose m4c `shouldBe` m4cconjtrans
+
+
+
+
 specSuite : IO ()
 specSuite = spec $ do
             basicSpec
             algebraSpec
+            complexSpec
