@@ -14,6 +14,8 @@ import NumIdris.Vector
 
 %access public export
 
+
+
 ||| type for a matrix of r rows and c columns, containing data of type t
 ||| @ r number of rows in the matrix
 ||| @ c number of columns in the matrix
@@ -95,21 +97,43 @@ fins : (n : Nat) -> Vect n (Fin n)
 fins Z = Nil
 fins (S n) = FZ :: map FS (fins n)
 
-||| get a list of indices
-indices : (r : Nat) -> (c : Nat) -> Vect (r*c) (Fin r, Fin c)
-indices r c = concat indicesMatrix where
-              rfins : Vect r (Fin r)
-              rfins = fins r
-              cfins : Vect c (Fin c)
-              cfins = fins c
-              distribute : Fin r -> Vect n (Fin c) -> Vect n (Fin r, Fin c)
-              distribute elem v = map (\x => (elem, x)) v
-              indicesMatrix : Matrix r c (Fin r ,Fin c)
-              indicesMatrix = map (\x => distribute x cfins) rfins
 
+distribute : a -> Vect n b -> Vect n (a,b)
+distribute elem v = map (\x => (elem, x)) v
+
+
+||| get a matrix of indices of a rxc matrix
+indicesMatrix : (r : Nat) -> (c : Nat) -> Matrix r c (Fin r, Fin c)
+indicesMatrix r c = map (\x => distribute x cfins) rfins where
+                    rfins : Vect r (Fin r)
+                    rfins = fins r
+                    cfins : Vect c (Fin c)
+                    cfins = fins c
+
+
+
+||| get a list of indices of a rxc matrix
+indices : (r : Nat) -> (c : Nat) -> Vect (r*c) (Fin r, Fin c)
+indices r c = concat (indicesMatrix r c)
 
 iterateM : (f : t -> t') -> (m : Matrix r c t) -> Matrix r c t'
 iterateM f m = map (\row => map f row) m
+
+
+cofactorOddRow : (Num t, Neg t) => (len : Nat) -> Vect len t
+cofactorOddRow Z = []
+cofactorOddRow (S Z) = [1]
+cofactorOddRow (S (S n)) = [1, -1] ++ cofactorOddRow n
+
+cofactorMatrix : (Num t, Neg t) => (r : Nat) -> (c : Nat) -> Matrix r c t
+cofactorMatrix r c = zipWith (scale) (cofactorOddRow r) (replicate r (cofactorOddRow c))
+
+zipM : Matrix r c a -> Matrix r c b -> Matrix r c (a,b)
+zipM m1 m2 = zipWith (zip) m1 m2
+
+zipMWith : (a -> b -> t) -> Matrix r c a -> Matrix r c b -> Matrix r c t
+zipMWith f m1 m2 = zipWith (zipWith f) m1 m2
+
 
 ||| fill a r x c matrix with some element
 fill : (Num t) => (elem :t) -> (r : Nat) -> (c : Nat) -> Matrix r c t
@@ -123,7 +147,6 @@ zerosM r c = replicate r (Vector.zeros c)
 identityM : (Num t, Field t) => (n : Nat) -> Matrix n n t
 identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n n)
 
-
 ||| construct a r x c matrix with some element at position (i,j) and zero everywhere else
 ||| @ r number of rows of the matrix
 ||| @ c number of columns of the matrix
@@ -132,33 +155,29 @@ identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n n)
 EijM : (Num t, Field t) => (r : Nat) -> (c : Nat) -> (index : (Fin r, Fin c)) -> (elem : t)-> Matrix r c t
 EijM r c index elem = replaceEntry index elem (zerosM r c)
 
-||| cofactor expansion along the first column
--- detRec : (Field t) => (m : Matrix (S k) (S k) t) -> t
--- detRec m = entry FZ FZ m
--- detRec (x :: xs) (FS j) = let zipx = (zip x (natRange n)) in
-                              -- map (\(xj, j) => let fj = natToFin j
-                              --                      sign = if even (1 + nj) then 1 else -1 in
-                              -- sign * (entry (FZ) fj)  * detRec (submatrix FZ fj m)) zipx
+
+alternateSum : (Num t, Neg t) => Vect n t -> t
+alternateSum [] = 0
+alternateSum [x] = x
+alternateSum (x::y::xs) = x - y + (alternateSum xs)
 
 
 ||| calcuate the determinant of a square matrix
-||| @ m the matrix
+||| @ m a square matrix
 determinant : (Field t) => (m : Matrix n n t) -> t
 determinant Nil = zero
-determinant {n = S Z} (x :: xs) = (head x)
+determinant {n = S Z} [[x]] = x
 determinant {n = S (S Z)} m = let ad = entry (FZ   , FZ) m * entry (FS FZ, FS FZ) m
                                   bc = entry (FS FZ, FZ) m * entry (FZ   , FS FZ) m in
                                   ad - bc
-determinant (x :: xs) = ?detRec_rhs
+determinant {n = S len} m@(x :: xs) = let n = S len
+                                          subs = map (\j => submatrix (FZ) j m) (fins n)
+                                          in alternateSum (zipWith (*) x (map determinant subs))
 
 ||| calculate the trace of a matrix
-||| @ m the matrix
+||| @ m a square matrix
 trace : (Field t) => (m : Matrix (S n) (S n) t) -> t
 trace m = foldl1 (+) (diag m)
-
-||| calculate the inverse of a matrix
-inverse : (Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
-inverse = ?inverse_rhs
 
 
 ||| add two matrices
@@ -173,7 +192,6 @@ add = zipWith Vector.add
 multiply : (Field t) => (m1: Matrix r c t) -> (m2 : Matrix c r' t) -> Matrix r r' t
 multiply m1 m2 = let m2' = transpose m2 in
         map (\row => map(\col => (dot row col)) m2') m1
-
 
 
 ||| get the max element along a row in a matrix
@@ -267,7 +285,6 @@ padM {c} m r' c' elem = let m' = map (\row => pad row elem c') m in
 takeM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r c t
 takeM r c m = take r (map (take c) m)
 
-
 ||| drop the upperleft r x c submatrix of matrix m
 ||| @ m original matrix
 ||| @ r the number of row in the submatrix
@@ -279,7 +296,32 @@ dropM r c m = drop r (map (drop c) m)
 basis : (Field t, Num t) => (m : Matrix r c t) -> Vect (r * c) (Matrix r c t)
 basis {r} {c} m = map (\ij => EijM r c ij one) (indices r c)
 
--- clipping, vector and matrix
+
+submatrices : (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) (Matrix n n t)
+submatrices {n} m = let indices = indicesMatrix (S n) (S n)
+                    in iterateM (\(i,j) => submatrix i j m) indices
+
+minors : (Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
+minors {n} m = let indices = indicesMatrix (S n) (S n)
+                          in iterateM (\(i,j) => determinant $ submatrix i j m) indices
+
+||| calculate the inverse of a matrix
+inverse : (Fractional t, Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
+inverse {n} m = let det = determinant m
+                    transposeCofactor = Vect.transpose (zipMWith (*) (minors m) (cofactorMatrix (S n) (S n)))
+                    in iterateM (* (1/det)) transposeCofactor
+
+
+testm : Matrix 3 3 Integer
+testm = [[3,0,2],[2,0,-2],[0,1,1]]
+
+-- λΠ> minors testm
+-- [[2, 2, 2], [-2, 3, 3], [0, -10, 0]] : Vect 3 (Vect 3 Integer)
+
+-- λΠ> inverse $ the (Matrix  3 3 Double) testm
+-- [[0.2, 0.2, -0.0],
+-- [-0.2, 0.30000000000000004, 1.0],
+-- [0.2, -0.30000000000000004, 0.0]] : Vect 3 (Vect 3 Double)
 
 
 -----------------------------------------------------------------------

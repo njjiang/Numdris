@@ -16,6 +16,8 @@ initVector : (len : Nat) -> (initElem : t) -> Vect len t
 initVector Z _ = Nil
 initVector (S n) initElem = initElem :: initVector n initElem
 
+
+
 ||| initialize a vector of some length filled with zeros
 ||| @ len length of the vector to initialize
 zeros : (Num t) => (len : Nat) -> Vect len t
@@ -36,6 +38,11 @@ arangelist start end step = if start >= end then []
 ||| @ step the difference between two elementadds two natural numberss
 arange : (Ord t, Num t) => (start : t) -> (end : t) -> (step : t) -> (p : Nat ** Vect p t)
 arange start end step = (_ ** fromList (arangelist start end step))
+
+natRangeVect : (n : Nat) -> Vect n Nat
+natRangeVect Z = []
+natRangeVect (S n) with (natRangeVect n)
+    | xx = insertAt (fromMaybe FZ $ natToFin n (S n)) n xx
 
 ||| multiply a vector by some scalar
 ||| @ c scalar
@@ -111,9 +118,6 @@ product {len = S _} v = foldl1 (*) v
 pad : (Num t) => (v : Vect len t) -> (elem : t) -> (padLen : Nat) -> Vect (len + padLen) t
 pad v elem padLen = v ++ (replicate padLen elem)
 
-
-truncate : (Num t) => (len : Nat) -> (v : Vect (a + len + b) t) -> Vect len t
--- truncate len v =
 
 
 -- mean : (Fractional t, Num t) => (v : Vect (S n) t) -> t
