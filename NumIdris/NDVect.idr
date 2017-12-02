@@ -24,7 +24,7 @@ NDVect (S n) (x::xs) t = Vect x (NDVect n xs t)
 select : (i : Fin rank) -> (v : NDVect rank shape t) -> Vect (Vect.index i shape) t
 
 ||| map an operation on every entry of a tensor
-iterateT : (f : t -> t') -> (v : NDVect r s t) -> NDVect r s t'
+iterateT : (Num t) => (f : t -> t') -> (v : NDVect r s t) -> NDVect r s t'
 iterateT {r = Z}   {s = []}    f v = f v
 iterateT {r = S Z} {s = [x]}   f v = map f v
 iterateT {r = S n} {s = x::xs} f v = map (iterateT f) v
@@ -33,7 +33,7 @@ iterateT {r = S n} {s = x::xs} f v = map (iterateT f) v
 ||| @ c scalar
 ||| @ v tensor
 ||| note: there seems to be a compiler bug that such that calling iterateT does not type check
-scale : Num t => (c : t) -> (v : NDVect rank shape t) -> NDVect rank shape t
+scale : (Num t) => (c : t) -> (v : NDVect rank shape t) -> NDVect rank shape t
 -- scale {rank = Z}   {shape = []}    c v = c * v
 -- scale {rank = S Z} {shape = [x]}   c v = map (* c) v
 -- scale {rank = S n} {shape = x::xs} c v = map (Tensor.scale c) v

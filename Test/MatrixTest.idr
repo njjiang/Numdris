@@ -19,6 +19,9 @@ m2 : Matrix 2 2 Integer
 m2 = Vect.fromList [[3,4]
                    ,[5,6]]
 
+mdet : Matrix 3 3 Integer
+mdet = Vect.fromList [[7,2,9] ,[5,6,3], [3,2,4]]
+
 basis6 : Vect 6 (Vect 2 (Vect 3 Integer))
 basis6 = Vect.fromList([[[1, 0, 0], [0, 0, 0]],
 [[0, 1, 0], [0, 0, 0]],
@@ -59,6 +62,8 @@ algebraSpec = describe "Test matrix algebra" $ do
                  (add m1 m2) `shouldBe` (Vect.fromList [[4, 6], [8, 10]])
               it "multiply two matrices" $ do
                  (multiply m1 m2) `shouldBe` (Vect.fromList [[13, 16], [29, 36]] )
+              it "determinant" $ do
+                 determinant mdet `shouldBe` 32
 
 
 m3 : Matrix 2 2 (Complex Integer)

@@ -6,7 +6,9 @@ modules = NumIdris.Matrix
         , Test.MatrixTest
         , Test.VectorTest
         , Test.NDVectTest
+        , Test.PolynomialTest
 
 tests = Test.MatrixTest.specSuite
       , Test.VectorTest.specSuite
       , Test.NDVectTest.specSuite
+      , Test.PolynomialTest.specSuite

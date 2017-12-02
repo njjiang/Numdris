@@ -14,8 +14,6 @@ import NumIdris.Vector
 
 %access public export
 
-
-
 ||| type for a matrix of r rows and c columns, containing data of type t
 ||| @ r number of rows in the matrix
 ||| @ c number of columns in the matrix
@@ -312,8 +310,8 @@ inverse {n} m = let det = determinant m
                     in iterateM (* (1/det)) transposeCofactor
 
 
-testm : Matrix 3 3 Integer
-testm = [[3,0,2],[2,0,-2],[0,1,1]]
+-- testm : Matrix 3 3 Integer
+-- testm = [[3,0,2],[2,0,-2],[0,1,1]]
 
 -- λΠ> minors testm
 -- [[2, 2, 2], [-2, 3, 3], [0, -10, 0]] : Vect 3 (Vect 3 Integer)
@@ -322,6 +320,13 @@ testm = [[3,0,2],[2,0,-2],[0,1,1]]
 -- [[0.2, 0.2, -0.0],
 -- [-0.2, 0.30000000000000004, 1.0],
 -- [0.2, -0.30000000000000004, 0.0]] : Vect 3 (Vect 3 Double)
+
+
+
+eigenvalues : Matrix r c t -> List Double
+eigenvalues m = ?eigenvalues
+
+
 
 
 -----------------------------------------------------------------------
