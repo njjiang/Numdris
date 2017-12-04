@@ -2,8 +2,8 @@ module Test.VectorTest
 import Specdris.Spec
 
 import Data.Vect as Vect
-import NumIdris.Vector
-import NumIdris.Field
+import Numdris.Vector
+import Numdris.Field
 
 %access export
 %default total

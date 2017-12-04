@@ -2,9 +2,9 @@ module Test.NDVectTest
 import Specdris.Spec
 
 import Data.Vect as Vect
-import NumIdris.Matrix
-import NumIdris.Field
-import NumIdris.NDVect
+import Numdris.Matrix
+import Numdris.Field
+import Numdris.NDVect
 
 %access export
 %default total

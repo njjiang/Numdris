@@ -1,10 +1,10 @@
 -- ------------------------------------------------------------- [ Polynomial.idr ]
--- Module      : NumIdris.Polynomial
+-- Module      : Numdris.Polynomial
 -- Description : Definitions for polynomials
 -- inspired by https://hackage.haskell.org/package/polynomial
 --------------------------------------------------------------------- [ EOH ]
 
-module NumIdris.Polynomial
+module Numdris.Polynomial
 
 import Data.Vect
 
@@ -32,9 +32,6 @@ Eq Polynomial where
            \(withCoefficients c2) =>
            (c1 == c2)
 
-
-
-
 zipWithExtend : (a -> a -> a) -> List a -> List a -> List a
 zipWithExtend f xx [] = xx
 zipWithExtend f [] yy = yy
@@ -56,6 +53,7 @@ subtract : Polynomial -> Polynomial -> Polynomial
 subtract f g = add f (mapP negate g)
 
 multiply : Polynomial -> Polynomial -> Polynomial
+-- TODO
 
 ||| trim the trailing zero coefficients
 trim : Polynomial -> Polynomial
@@ -81,7 +79,6 @@ eval f x = let coeff = coefficients f
                xpow = map (pow x) (natRange (length coeff))
                in foldl1 (+) (zipWith (*) coeff xpow)
 
-
 test : Polynomial
 test = withCoefficients []
 
@@ -95,5 +92,4 @@ Neg Polynomial where
     negate = mapP negate
     abs = mapP abs
 
-
-roots : (Num t, Fractional t) => (f : Polynomial) -> Vect n t
+roots : (Num t, Fractional t) => (f : Polynomial) -> List t

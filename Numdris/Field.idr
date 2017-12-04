@@ -1,9 +1,9 @@
 -- ------------------------------------------------------------- [ Field.idr ]
--- Module      : NumIdris.Field
+-- Module      : Numdris.Field
 -- Description : Definitions for the interface Field
 --
 --------------------------------------------------------------------- [ EOH ]
-module NumIdris.Field
+module Numdris.Field
 
 %access public export
 

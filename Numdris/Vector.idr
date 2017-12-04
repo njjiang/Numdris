@@ -1,11 +1,11 @@
 -- ------------------------------------------------------------- [ Vector.idr ]
--- Module      : NumIdris.Vector
+-- Module      : Numdris.Vector
 -- Description : some basic vector operations
 --------------------------------------------------------------------- [ EOH ]
-module NumIdris.Vector
+module Numdris.Vector
 
 import Data.Vect as Vect
-import NumIdris.Field
+import Numdris.Field
 
 %access public export
 
@@ -16,7 +16,15 @@ initVector : (len : Nat) -> (initElem : t) -> Vect len t
 initVector Z _ = Nil
 initVector (S n) initElem = initElem :: initVector n initElem
 
+Num t => Num (Vect len t) where
+    (+) = zipWith (+)
+    (*) = zipWith (*)
+    fromInteger x = replicate _ (fromInteger x)
 
+Neg t => Neg (Vect len t) where
+    (-) = zipWith (-)
+    abs = map abs
+    negate = map negate
 
 ||| initialize a vector of some length filled with zeros
 ||| @ len length of the vector to initialize
@@ -56,6 +64,12 @@ scale c v = map (* c) v
 add : (Num t) => (v1 : Vect len t) -> (v2 : Vect len t) -> Vect len t
 add v1 v2 = zipWith (+) v1 v2
 
+
+||| compute pointwise v1 / v2
+divide : (v1 : Vect len Double) -> (v2 : Vect len Double) -> Vect len Double
+divide = zipWith (/)
+
+
 ||| find the max element in some non-empty vector
 ||| @ v the vector
 max : (Ord t) => (v : Vect (S n) t) -> t
@@ -87,9 +101,9 @@ dot v1 v2 = foldr (+) 0 (Vect.zipWith (*) v1 v2)
 inner : (Num t) => (v1 : Vect len t) -> (v2 : Vect len t) -> t
 inner = dot
 
--- ||| take the outer product of two vectors
--- ||| @ v1 first vector
--- ||| @ v2 second vector
+||| take the outer product of two vectors
+||| @ v1 first vector
+||| @ v2 second vector
 outer : (Num t, Field t) => (v1 : Vect len1 t) -> (v2 : Vect len2 t) -> Vect len1 (Vect len2 t)
 outer v1 v2 = map (\x => map (* x) v2) v1
 
@@ -118,7 +132,6 @@ product {len = S _} v = foldl1 (*) v
 pad : (Num t) => (v : Vect len t) -> (elem : t) -> (padLen : Nat) -> Vect (len + padLen) t
 pad v elem padLen = v ++ (replicate padLen elem)
 
-
-
--- mean : (Fractional t, Num t) => (v : Vect (S n) t) -> t
--- mean v =  (Vector.sum v) / (Vect.length v)
+||| calculate the mean of an nonempty vector
+mean : (v : Vect (S n) Double) -> Double
+mean {n} v =  (Vector.sum v) / (cast {to=Double} (S n))

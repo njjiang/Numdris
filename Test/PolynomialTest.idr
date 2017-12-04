@@ -2,7 +2,7 @@ module Test.PolynomialTest
 import Specdris.Spec
 
 import Data.Vect
-import NumIdris.Polynomial
+import Numdris.Polynomial
 
 %access export
 %default total

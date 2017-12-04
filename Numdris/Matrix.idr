@@ -1,16 +1,16 @@
 -- ------------------------------------------------------------- [ Matrix.idr ]
--- Module      : NumIdris.Matrix
+-- Module      : Numdris.Matrix
 -- Description : Definitions for matrices
 --
 -- Part of the code is borrowed from https://github.com/idris-lang/Idris-dev/blob/master/libs/contrib/Data/Matrix.idr
 --------------------------------------------------------------------- [ EOH ]
 
-module NumIdris.Matrix
+module Numdris.Matrix
 
 import Data.Vect as V
 import Data.Complex as C
-import NumIdris.Field
-import NumIdris.Vector
+import Numdris.Field
+import Numdris.Vector
 
 %access public export
 
@@ -95,7 +95,7 @@ fins : (n : Nat) -> Vect n (Fin n)
 fins Z = Nil
 fins (S n) = FZ :: map FS (fins n)
 
-
+||| distribute an element to a vector and get a vector of pairs
 distribute : a -> Vect n b -> Vect n (a,b)
 distribute elem v = map (\x => (elem, x)) v
 
@@ -114,21 +114,28 @@ indicesMatrix r c = map (\x => distribute x cfins) rfins where
 indices : (r : Nat) -> (c : Nat) -> Vect (r*c) (Fin r, Fin c)
 indices r c = concat (indicesMatrix r c)
 
+||| map an operation on a matrix
 iterateM : (f : t -> t') -> (m : Matrix r c t) -> Matrix r c t'
 iterateM f m = map (\row => map f row) m
 
 
+||| a cofactor row starting with 1 of some length
+||| [1, -1, 1, -1 ....]
 cofactorOddRow : (Num t, Neg t) => (len : Nat) -> Vect len t
 cofactorOddRow Z = []
 cofactorOddRow (S Z) = [1]
 cofactorOddRow (S (S n)) = [1, -1] ++ cofactorOddRow n
 
+||| a cofactor r x c matrix
+||| for each position (i,j), Mij = 1 if (i+j) is even, else Mij = -1
 cofactorMatrix : (Num t, Neg t) => (r : Nat) -> (c : Nat) -> Matrix r c t
 cofactorMatrix r c = zipWith (scale) (cofactorOddRow r) (replicate r (cofactorOddRow c))
 
+||| zip two matrices
 zipM : Matrix r c a -> Matrix r c b -> Matrix r c (a,b)
 zipM m1 m2 = zipWith (zip) m1 m2
 
+||| zip two matrices with some function applied
 zipMWith : (a -> b -> t) -> Matrix r c a -> Matrix r c b -> Matrix r c t
 zipMWith f m1 m2 = zipWith (zipWith f) m1 m2
 
@@ -154,6 +161,7 @@ EijM : (Num t, Field t) => (r : Nat) -> (c : Nat) -> (index : (Fin r, Fin c)) ->
 EijM r c index elem = replaceEntry index elem (zerosM r c)
 
 
+||| sum a vector while alternating between (+) and (-) for each element
 alternateSum : (Num t, Neg t) => Vect n t -> t
 alternateSum [] = 0
 alternateSum [x] = x
@@ -185,12 +193,14 @@ add : (Field t) => (m1 : Matrix r c t) -> (m2 : Matrix r c t) -> Matrix r c t
 add = zipWith Vector.add
 
 ||| multiply two matrices
-||| @ m1 the first matrix
-||| @ m2 the second matrix
-multiply : (Field t) => (m1: Matrix r c t) -> (m2 : Matrix c r' t) -> Matrix r r' t
+multiply : (Field t) => Matrix r c t -> Matrix c r' t -> Matrix r r' t
 multiply m1 m2 = let m2' = transpose m2 in
         map (\row => map(\col => (dot row col)) m2') m1
 
+
+||| mua matrix by a column vector
+multiplyVect : (Field t) => Matrix r c t -> Vect c t -> Vect r t
+multiplyVect m v = map (Vector.dot v) m
 
 ||| get the max element along a row in a matrix
 ||| undefined for empty matrix
@@ -310,8 +320,8 @@ inverse {n} m = let det = determinant m
                     in iterateM (* (1/det)) transposeCofactor
 
 
--- testm : Matrix 3 3 Integer
--- testm = [[3,0,2],[2,0,-2],[0,1,1]]
+testm : Matrix 3 3 Integer
+testm = [[3,0,2],[2,0,-2],[0,1,1]]
 
 -- λΠ> minors testm
 -- [[2, 2, 2], [-2, 3, 3], [0, -10, 0]] : Vect 3 (Vect 3 Integer)
@@ -322,12 +332,26 @@ inverse {n} m = let det = determinant m
 -- [0.2, -0.30000000000000004, 0.0]] : Vect 3 (Vect 3 Double)
 
 
+||| Num instance for Matrix
+[MatrixNum] (Field t, Num t) => Num (Matrix r c t) where
+    (+) = Matrix.add
+    (*) = zipMWith (*)
+    fromInteger x {r} {c} = replicate r $ replicate c (fromInteger x)
 
-eigenvalues : Matrix r c t -> List Double
-eigenvalues m = ?eigenvalues
 
+||| Neg instance for Matrix
+[MatrixNeg] (Field t, Neg t) => Neg (Matrix r c t) where
+    (-) = zipMWith (-)
+    abs = iterateM abs
+    negate = iterateM negate
 
-
+||| Ord instance for Matrix
+||| lexicographical order
+[MatrixOrd] (Field t, Ord t) => Ord (Matrix r c t) where
+    compare [] [] = EQ
+    compare (x::xs) (y::ys) = case compare x y of
+                              EQ => compare xs ys
+                              _ => compare x y
 
 -----------------------------------------------------------------------
 --                        Complex field operations
@@ -344,3 +368,12 @@ conjugate m = iterateM C.conjugate m
 
 conjugateTranspose : (Neg t, Num t) => (m : Matrix r c (Complex t)) -> Matrix c r (Complex t)
 conjugateTranspose m = conjugate $ transpose m
+
+-----------------------------------------------------------------------
+--                        Eigen decompositions
+-----------------------------------------------------------------------
+
+||| compute the corresponding eigenvalue t given an eigenvector of a matrix
+||| Ax = tx
+eigenvalue : Matrix n n Double -> (eigenvector : Vect n Double) -> Double
+-- eigenvalue A x = divide (multiplyVect A x) x

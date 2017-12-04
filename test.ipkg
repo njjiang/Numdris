@@ -1,8 +1,8 @@
-package NumIdris
+package Numdris
 
 pkgs = specdris
 
-modules = NumIdris.Matrix
+modules = Numdris.Matrix
         , Test.MatrixTest
         , Test.VectorTest
         , Test.NDVectTest

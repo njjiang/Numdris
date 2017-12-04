@@ -3,8 +3,8 @@ import Specdris.Spec
 
 import Data.Vect as Vect
 import Data.Complex
-import NumIdris.Matrix
-import NumIdris.Field
+import Numdris.Matrix
+import Numdris.Field
 
 %access export
 %default total
