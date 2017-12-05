@@ -13,12 +13,16 @@ import Numdris.Field
 
 %access public export
 
+infixr 7 <><>
+
 ||| n-dimensional vector of with rank and shape encoded in types
 NDVect : (rank : Nat) -> (shape : Vect rank Nat) -> Type -> Type
 NDVect Z     []      t = t
 NDVect (S n) (x::xs) t = Vect x (NDVect n xs t)
 
 
+-- fromListOfShape : (l : List t) -> (v : Vect rank Nat) -> NDVect rank v t
+-- fromListOfShape l (x::xs) = ?
 
 ||| map an operation on every entry of a tensor
 mapT : (Num t) => (f : t -> t') -> (v : NDVect r s t) -> NDVect r s t'
@@ -34,20 +38,17 @@ mapT {r = S _} {s = x::xs} f v = (map {f = Vect x}) (mapT f) v
 scale : (Num t) => (c : t) -> (v : NDVect rank shape t) -> NDVect rank shape t
 scale c v = mapT (*c) v
 
-||| computes the dot product of two tensors
-dot : Num t => (v: NDVect r shape t) -> (w: NDVect r' shape' t) -> NDVect (r + r') (shape ++ shape') t
-dot {r = Z}   {shape = []}    v w = scale v w
-dot {r = S _}  {shape = x::xs} v w = map (\x => dot x w) v
+
+||| computes the tensor product ⊗
+(<><>) : Num t => (v: NDVect r shape t) -> (w: NDVect r' shape' t) -> NDVect (r + r') (shape ++ shape') t
+(<><>) {r = Z}   {shape = []}    v w = scale v w
+(<><>) {r = S _}  {shape = x::xs} v w = map (\x => x <><> w) v
 
 ||| determinant of a n x n matrix/2d vector
 determinant : (Field t, Num t) => NDVect 2 [n,n] t -> t
 determinant v = Matrix.determinant v
 
--- sum
-
--- diagonal
-
--- traces
+-- slicing
 
 
 ||| map a complex field operation
