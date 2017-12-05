@@ -79,25 +79,6 @@ multiplyVect m v = map (Vector.dot v) m
 flatten : (Field t) => (m : Matrix r c t) -> Vect (r * c) t
 flatten m = concat m
 
-||| expand a matrix with some padding elements
-padM : (Field t) => (m : Matrix r c t) -> (r' : Nat) -> (c' : Nat) -> (elem :t) -> Matrix (r + r') (c + c') t
-padM {c} m r' c' elem = let m' = map (\row => pad row elem c') m in
-                        m' ++ replicate r' (replicate (c + c') elem)
-
-||| take the upperleft r x c submatrix of matrix m
-||| @ m original matrix
-||| @ r the number of row in the submatrix
-||| @ c the number of column in the submatrix
-takeM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r c t
-takeM r c m = take r (map (take c) m)
-
-||| drop the upperleft r x c submatrix of matrix m
-||| @ m original matrix
-||| @ r the number of row in the submatrix
-||| @ c the number of column in the submatrix
-dropM : (r : Nat) -> (c : Nat) -> (m : Matrix (r + r') (c + c') t) -> Matrix r' c' t
-dropM r c m = drop r (map (drop c) m)
-
 submatrices : (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) (Matrix n n t)
 submatrices {n} m = let indices = indicesMatrix (S n) (S n)
                     in iterateM (\(i,j) => submatrix i j m) indices
