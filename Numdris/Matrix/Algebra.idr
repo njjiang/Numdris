@@ -6,33 +6,16 @@
 
 module Numdris.Matrix.Algebra
 
+import Data.Vect
+import Data.Complex
+import Numdris.Vector
 import Numdris.Matrix
+import Numdris.Field
+import Effects
+import Effect.Random
+import Effect.System
 
-
-
-||| Num instance for Matrix
-[MatrixNum] (Field t, Num t) => Num (Matrix r c t) where
-    (+) = Matrix.add
-    (*) = zipMWith (*)
-    fromInteger x {r} {c} = replicate r $ replicate c (fromInteger x)
-
-
-||| Neg instance for Matrix
-[MatrixNeg] (Field t, Neg t) => Neg (Matrix r c t) where
-    (-) = zipMWith (-)
-    abs = iterateM abs
-    negate = iterateM negate
-
-||| Ord instance for Matrix
-||| lexicographical order
-[MatrixOrd] (Field t, Ord t) => Ord (Matrix r c t) where
-    compare [] [] = EQ
-    compare (x::xs) (y::ys) = case compare x y of
-                              EQ => compare xs ys
-                              _ => compare x y
-
-
-
+%access public export
 
 ||| sum a vector while alternating between (+) and (-) for each element
 alternateSum : (Num t, Neg t) => Vect n t -> t
@@ -58,17 +41,16 @@ determinant {n = S len} m@(x :: xs) = let n = S len
 trace : (Field t) => (m : Matrix (S n) (S n) t) -> t
 trace m = foldl1 (+) (diag m)
 
-
 ||| add two matrices
 ||| @ m1 the first matrix
 ||| @ m2 the second matrix
-add : (Field t) => (m1 : Matrix r c t) -> (m2 : Matrix r c t) -> Matrix r c t
-add = zipWith Vector.add
+addM : (Field t) => (m1 : Matrix r c t) -> (m2 : Matrix r c t) -> Matrix r c t
+addM = zipWith Vector.add
 
 ||| multiply two matrices
-multiply : (Field t) => Matrix r c t -> Matrix c r' t -> Matrix r r' t
-multiply m1 m2 = let m2' = transpose m2 in
-        map (\row => map(\col => (dot row col)) m2') m1
+multiplyM : (Field t) => Matrix r c t -> Matrix c r' t -> Matrix r r' t
+multiplyM m1 m2 = let m2' = transpose m2 in
+                  map (\row => map(\col => (dot row col)) m2') m1
 
 
 ||| mua matrix by a column vector
@@ -121,31 +103,67 @@ inverse {n} m = let det = determinant m
 -----------------------------------------------------------------------
 
 real : Num t => (m : Matrix r c (Complex t)) -> Matrix r c t
-real m = iterateM C.realPart m
+real m = iterateM realPart m
 
 imaginary : Num t => (m : Matrix r c (Complex t)) -> Matrix r c t
-imaginary m = iterateM C.imagPart m
+imaginary m = iterateM imagPart m
 
 conjugate : (Neg t, Num t) => (m : Matrix r c (Complex t)) -> Matrix r c (Complex t)
-conjugate m = iterateM C.conjugate m
+conjugate m = iterateM conjugate m
 
 conjugateTranspose : (Neg t, Num t) => (m : Matrix r c (Complex t)) -> Matrix c r (Complex t)
 conjugateTranspose m = conjugate $ transpose m
 
 -----------------------------------------------------------------------
 --                        Eigen decompositions
+-- borrowed from https://gist.github.com/justinmanley/f2e169feb32e06e06c2f
 -----------------------------------------------------------------------
 
-||| compute the corresponding eigenvalue t given an eigenvector of a matrix
-||| (A-tI)x = 0
-eigenvalue : Matrix n n Double -> (eigenvector : Vect n Double) -> Double
--- eigenvalue A x = divide (multiplyVect A x) x
+eigenvalue : Matrix n n Double -> Vect n Double -> Double
+eigenvalue m v = dot v (multiplyVect m v)
 
+
+||| estimate the eigenvector of a matrix
+eigenvector : Matrix n n Double -> (precision : Double) -> (seed : Vect n Double) -> List (Vect n Double) -> Vect n Double
+eigenvector A precision seed previous {n} = if err < precision
+                                        then result
+                                        else eigenvector A precision result previous where
+                                        result' : Vect n Double
+                                        result' = (orthorgonalizeAll {len=n}) seed previous
+                                        result : Vect n Double
+                                        result = normalize $ multiplyVect A result'
+                                        err : Double
+                                        err = case compare (eigenvalue A result) 0 of
+                                              GT => norm (subtract result' result)
+                                              LT => norm (add result' result)
+
+
+||| generate a random double between 0 and 1
+rndDouble : Integer -> Eff Double [RND]
+rndDouble max = do
+                rnd <- rndInt 0 max
+                pure (fromInteger rnd / fromInteger max)
+
+
+||| map using a function which depends on the previously-mapped values.
+||| like a combination of map and fold in which the state is the values
+||| which have already been mapped.
+mapRemember : (a -> List b -> b) -> List a -> List b -> List b
+mapRemember f values state = case values of
+                             []        => reverse state
+                             (x :: xs) => mapRemember f xs (f x state :: state)
+
+
+||| compute the eigenvectors
+eigenvectors : Matrix n n Double -> (precision : Double) -> Eff (List (Vect n Double)) [RND, SYSTEM]
+eigenvectors {n} matrix precision = do
+    srand !time
+    seedVectors <- mapE (\vs => mapVE (\x => rndDouble x) vs) $ List.replicate n (Vect.replicate n (cast $ 1 / precision))
+    pure $ mapRemember (eigenvector matrix precision) seedVectors []
 
 -----------------------------------------------------------------------
 --                        Min/Max/Sum/Prod
 -----------------------------------------------------------------------
-
 
 ||| get the max element along a row in a matrix
 ||| undefined for empty matrix
@@ -221,3 +239,25 @@ productAlongRow m row = Vector.product $ getRow row m
 ||| product along column
 productAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
 productAlongColumn m col = Vector.product $ getColumn col m
+
+
+||| Num instance for Matrix
+[MatrixNum] (Field t, Num t) => Num (Matrix r c t) where
+    (+) = addM
+    (*) = zipMWith (*)
+    fromInteger x {r} {c} = replicate r $ replicate c (fromInteger x)
+
+
+||| Neg instance for Matrix
+[MatrixNeg] (Field t, Neg t) => Neg (Matrix r c t) where
+    (-) = zipMWith (-)
+    abs = iterateM abs
+    negate = iterateM negate
+
+||| Ord instance for Matrix
+||| lexicographical order
+[MatrixOrd] (Field t, Ord t) => Ord (Matrix r c t) where
+    compare [] [] = EQ
+    compare (x::xs) (y::ys) = case compare x y of
+                              EQ => compare xs ys
+                              _ => compare x y

@@ -14,21 +14,6 @@ foo : NDVect 0 [] Integer
 foo = 42
 
 
--- a : NDVect 3 [3,3,3] Integer
--- a = [[[ 0,  1,  2],
---       [ 3,  4,  5],
---       [ 6,  7,  8]],
---      [[ 9, 10, 11],
---       [12, 13, 14],
---       [15, 16, 17]],
---      [[18, 19, 20],
---       [21, 22, 23],
---       [24, 25, 26]]]
-
--- b : NDVect 3 [2,2,3] Integer
--- b = [[[1,2,3],[1,2,3]],
---      [[1,2,3],[1,2,3]]]
-
 
 -- sol : NDVect 6 [3,3,3,2,2,3] Integer
 -- sol = [[[[[[ 0,  0,  0],
@@ -146,14 +131,41 @@ c = [1,2]
 csol : NDVect 2 [2,2] Integer
 csol = [[1,2], [2,4]]
 
-outerProductSpec : SpecTree
-outerProductSpec = describe "test tensor outer product" $ do
-                   it "take the outer product" $ do
-                      -- outerProd a b `shouldBe` sol
-                      outerProd c c `shouldBe` csol
+a : NDVect 3 [3,3,3] Integer
+a = [[[ 0,  1,  2],
+[ 3,  4,  5],
+[ 6,  7,  8]],
+[[ 9, 10, 11],
+[12, 13, 14],
+[15, 16, 17]],
+[[18, 19, 20],
+[21, 22, 23],
+[24, 25, 26]]]
+
+b : NDVect 3 [2,2,3] Integer
+b = [[[1,2,3],[1,2,3]],
+[[1,2,3],[1,2,3]]]
 
 
+b3 : NDVect 4 [3,2,2,3] Integer
+b3 = [
+      [[[1,2,3],[1,2,3]],
+       [[1,2,3],[1,2,3]]],
+      [[[1,2,3],[1,2,3]],
+       [[1,2,3],[1,2,3]]],
+      [[[1,2,3],[1,2,3]],
+       [[1,2,3],[1,2,3]]]]
+
+productSpec : SpecTree
+productSpec = describe "test tensor outer product" $ do
+                 it "take the tensor product" $ do
+                    -- dot a b `shouldBe` sol
+                     c <><> c `shouldBe` csol
+                 it "entry" $ do
+                    entry a [0,1,2] `shouldBe` Just 5
+                 it "expand" $ do
+                    expand  3 b `shouldBe ` b3
 
 specSuite : IO ()
 specSuite = spec $ do
-            outerProductSpec
+            productSpec

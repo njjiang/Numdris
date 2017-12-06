@@ -65,6 +65,11 @@ add : (Num t) => (v1 : Vect len t) -> (v2 : Vect len t) -> Vect len t
 add v1 v2 = zipWith (+) v1 v2
 
 
+||| v1 - v2
+subtract : (Neg t) => Vect len t -> Vect len t -> Vect len t
+subtract v1 v2 = zipWith (-) v1 v2
+
+
 ||| compute pointwise v1 / v2
 divide : (v1 : Vect len Double) -> (v2 : Vect len Double) -> Vect len Double
 divide = zipWith (/)
@@ -135,3 +140,20 @@ pad v elem padLen = v ++ (replicate padLen elem)
 ||| calculate the mean of an nonempty vector
 mean : (v : Vect (S n) Double) -> Double
 mean {n} v =  (Vector.sum v) / (cast {to=Double} (S n))
+
+||| compute the norm/length of a vector
+norm : Vect len Double -> Double
+norm v = sqrt (dot v v)
+
+||| normalize a vector
+normalize : Vect len Double -> Vect len Double
+normalize v = scale (1/(norm v)) v
+
+||| make two vectors orthorgonal
+||| w - v (v dot w)/(v dot v)
+orthorgonalize : Vect len Double -> Vect len Double -> Vect len Double
+orthorgonalize v w = w `subtract` (scale ((dot v w)/(dot v v)) v)
+
+||| make the current vector orthorgonalize to a list of vectors
+orthorgonalizeAll : Vect len Double -> List (Vect len Double) -> Vect len Double
+orthorgonalizeAll v vs = foldl orthorgonalize v vs

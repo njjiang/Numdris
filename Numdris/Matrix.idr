@@ -110,7 +110,6 @@ indicesMatrix r c = map (\x => distribute x cfins) rfins where
                     cfins = fins c
 
 
-
 ||| get a list of indices of a rxc matrix
 indices : (r : Nat) -> (c : Nat) -> Vect (r*c) (Fin r, Fin c)
 indices r c = concat (indicesMatrix r c)
@@ -177,16 +176,3 @@ rewriteSingleton {c} v = rewrite sym $ multOneLeftNeutral c in v
 splitVect : (r : Nat) -> (c : Nat) -> (v : Vect (r * c) t) ->  Matrix r c t
 splitVect (S Z) c v = [(rewriteSingleton v)]
 splitVect (S r) c v = (take c v) :: splitVect r c (drop c v)
-
--- slicing TODO
-
--- testm : Matrix 3 3 Integer
--- testm = [[3,0,2],[2,0,-2],[0,1,1]]
-
--- λΠ> minors testm
--- [[2, 2, 2], [-2, 3, 3], [0, -10, 0]] : Vect 3 (Vect 3 Integer)
-
--- λΠ> inverse $ the (Matrix  3 3 Double) testm
--- [[0.2, 0.2, -0.0],
--- [-0.2, 0.30000000000000004, 1.0],
--- [0.2, -0.30000000000000004, 0.0]] : Vect 3 (Vect 3 Double)

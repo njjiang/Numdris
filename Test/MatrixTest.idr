@@ -4,6 +4,7 @@ import Specdris.Spec
 import Data.Vect as Vect
 import Data.Complex
 import Numdris.Matrix
+import Numdris.Matrix.Algebra
 import Numdris.Field
 
 %access export
@@ -31,6 +32,8 @@ basis6 = Vect.fromList([[[1, 0, 0], [0, 0, 0]],
 [[0, 0, 0], [0, 0, 1]]])
 
 
+
+
 basicSpec : SpecTree
 basicSpec = describe "Test some basic manipulations" $ do
             it "take the first row" $ do
@@ -54,16 +57,25 @@ basicSpec = describe "Test some basic manipulations" $ do
             it "standard basis" $ do
                basis (zerosM 2 3) `shouldBe` basis6
 
+testm : Matrix 3 3 Double
+testm = [[3.0,0.0,2.0],[2.0,0.0,-2.0],[0.0,1.0,1.0]]
+
+testminv : Matrix 3 3 Double
+testminv = [[0.2, 0.2, -0.0],
+            [-0.2, 0.30000000000000004, 1.0],
+            [0.2, -0.30000000000000004, 0.0]]
 
 
 algebraSpec : SpecTree
 algebraSpec = describe "Test matrix algebra" $ do
               it "add two matrices" $ do
-                 (add m1 m2) `shouldBe` (Vect.fromList [[4, 6], [8, 10]])
+                 ((+) @{MatrixNum} m1 m2) `shouldBe` (Vect.fromList [[4, 6], [8, 10]])
               it "multiply two matrices" $ do
-                 (multiply m1 m2) `shouldBe` (Vect.fromList [[13, 16], [29, 36]] )
+                 (multiplyM m1 m2) `shouldBe` (Vect.fromList [[13, 16], [29, 36]] )
               it "determinant" $ do
                  determinant mdet `shouldBe` 32
+              it "inverse" $ do
+                 inverse testm `shouldBe` testminv
 
 
 m3 : Matrix 2 2 (Complex Integer)

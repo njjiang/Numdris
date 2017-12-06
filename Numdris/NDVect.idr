@@ -9,6 +9,7 @@ import Data.Vect
 import Data.Complex
 import Numdris.Vector
 import Numdris.Matrix
+import Numdris.Matrix.Algebra as MA
 import Numdris.Field
 
 %access public export
@@ -21,11 +22,8 @@ NDVect Z     []      t = t
 NDVect (S n) (x::xs) t = Vect x (NDVect n xs t)
 
 
--- fromListOfShape : (l : List t) -> (v : Vect rank Nat) -> NDVect rank v t
--- fromListOfShape l (x::xs) = ?
-
 ||| map an operation on every entry of a tensor
-mapT : (Num t) => (f : t -> t') -> (v : NDVect r s t) -> NDVect r s t'
+mapT : (f : t -> t) -> (v : NDVect r s t) -> NDVect r s t
 mapT {r = Z}   {s = []}    f v = f v
 mapT {r = S Z} {s = [x]}   f v = map f v
 mapT {r = S (S Z)} {s = [x,y]}   f v = iterateM f v
@@ -40,15 +38,34 @@ scale c v = mapT (*c) v
 
 
 ||| computes the tensor product ⊗
-(<><>) : Num t => (v: NDVect r shape t) -> (w: NDVect r' shape' t) -> NDVect (r + r') (shape ++ shape') t
+(<><>) : Num t => (v: NDVect r shape t) ->
+                  (w: NDVect r' shape' t) ->
+                  NDVect (r + r') (shape ++ shape') t
 (<><>) {r = Z}   {shape = []}    v w = scale v w
 (<><>) {r = S _}  {shape = x::xs} v w = map (\x => x <><> w) v
 
 ||| determinant of a n x n matrix/2d vector
 determinant : (Field t, Num t) => NDVect 2 [n,n] t -> t
-determinant v = Matrix.determinant v
+determinant v = Algebra.determinant v
 
--- slicing
+||| get an entry from an NDVect, given a list of indices
+entry : NDVect rank shape t -> Vect rank Nat -> Maybe t
+entry {rank = Z}     {shape = []} ndv indices = Just ndv
+entry {rank = (S n)} {shape = (x::xs)} ndv (i::is) with (natToFin i x)
+      | Just fi = entry (Vect.index fi ndv) is
+      | Nothing = Nothing
+
+||| expand a NDVect by one dimension
+expand : (times : Nat) -> NDVect rank shape t -> NDVect (S rank) (times :: shape) t
+expand times v = replicate times v
+
+||| flatten an NDVect to a 1D vector
+||| unimplemented for rank > 2
+flattenND : NDVect (S rank) shape t -> Vect (Foldable.product shape) t
+flattenND {rank = Z} {shape = [x]} v = rewrite multOneRightNeutral x in v
+flattenND {rank = S Z} {shape = [x,y]} v = rewrite multOneRightNeutral y in Vect.concat v
+-- flattenND {rank = S (S n)} {shape = x::y::xs} {t} v = Vect.concat $ map(flattenND {rank=(S n)} {shape = y::xs} {t=t}) v
+
 
 
 ||| map a complex field operation
@@ -63,3 +80,6 @@ real {a} m = mapComplex realPart m
 
 imaginary : Num t => (m : NDVect r shape (Complex t)) -> NDVect r shape t
 imaginary m = mapComplex imagPart m
+
+conjugate : Neg t => (m : NDVect r shape (Complex t)) -> NDVect r shape (Complex t)
+conjugate {t} m = (mapT {t = Complex t}) Complex.conjugate m

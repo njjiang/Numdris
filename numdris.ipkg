@@ -1,6 +1,6 @@
 package Numdris
 
-pkgs = specdris
+pkgs = specdris, effects
 
 
 modules = Numdris.Field
