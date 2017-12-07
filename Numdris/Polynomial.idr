@@ -79,9 +79,6 @@ eval f x = let coeff = coefficients f
                xpow = map (pow x) (natRange (length coeff))
                in foldl1 (+) (zipWith (*) coeff xpow)
 
-test : Polynomial
-test = withCoefficients []
-
 Num Polynomial where
     (+) = add
     (*) = multiply
@@ -93,3 +90,4 @@ Neg Polynomial where
     abs = mapP abs
 
 roots : (Num t, Fractional t) => (f : Polynomial) -> List t
+--TODO

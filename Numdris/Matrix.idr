@@ -126,7 +126,6 @@ zipM m1 m2 = zipWith (zip) m1 m2
 zipMWith : (a -> b -> t) -> Matrix r c a -> Matrix r c b -> Matrix r c t
 zipMWith f m1 m2 = zipWith (zipWith f) m1 m2
 
-
 ||| fill a r x c matrix with some element
 fill : (Num t) => (elem :t) -> (r : Nat) -> (c : Nat) -> Matrix r c t
 fill elem r c = replicate r (replicate c elem)
@@ -138,6 +137,16 @@ zerosM r c = replicate r (Vector.zeros c)
 ||| construct an n x n identity matrix
 identityM : (Num t, Field t) => (n : Nat) -> Matrix n n t
 identityM n = zipWith (\i => \row => replaceAt i one row) (fins n) (zerosM n n)
+
+||| construct a matrix with value paired with its index
+indexedMatrix : Matrix r c t -> Matrix r c ((Fin r, Fin c) ,t)
+indexedMatrix {r} {c} m = zipM (indicesMatrix r c) m
+
+||| get the positions and values of nonzero entries of a matrix
+nonzeros : (Field t) => Matrix r c t -> List ((Fin r, Fin c), t)
+nonzeros m = let m' = toList . concat $ indexedMatrix m in
+             (filter (\(ind, v) => v /= zero )) m'
+
 
 ||| construct a r x c matrix with some element at position (i,j) and zero everywhere else
 ||| @ r number of rows of the matrix

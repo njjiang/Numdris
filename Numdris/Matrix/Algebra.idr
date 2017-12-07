@@ -241,6 +241,7 @@ productAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)
 productAlongColumn m col = Vector.product $ getColumn col m
 
 
+
 ||| Num instance for Matrix
 [MatrixNum] (Field t, Num t) => Num (Matrix r c t) where
     (+) = addM
@@ -261,3 +262,9 @@ productAlongColumn m col = Vector.product $ getColumn col m
     compare (x::xs) (y::ys) = case compare x y of
                               EQ => compare xs ys
                               _ => compare x y
+
+
+-- [MatrixEq] (Field t, Eq t) => Eq (Matrix r c t) where
+--     (==) = \m1 => \m2 => case compare @{MatrixOrd} m1 m2 of
+--                          EQ => True
+--                          _ => False

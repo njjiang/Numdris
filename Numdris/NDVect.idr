@@ -67,7 +67,6 @@ flattenND {rank = S Z} {shape = [x,y]} v = rewrite multOneRightNeutral y in Vect
 -- flattenND {rank = S (S n)} {shape = x::y::xs} {t} v = Vect.concat $ map(flattenND {rank=(S n)} {shape = y::xs} {t=t}) v
 
 
-
 ||| map a complex field operation
 ||| as a work around for yet another compiler bug
 mapComplex : Num a => (f : (Complex a) -> a) -> (v : NDVect r s (Complex a)) -> NDVect r s a
