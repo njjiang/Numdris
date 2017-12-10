@@ -87,15 +87,14 @@ insertColumnAt j column m = zipWith (insertAt j) column m
 submatrix : (i : Fin (S r)) -> (j : Fin (S c)) -> (m : Matrix (S r) (S c) t) -> Matrix r c t
 submatrix i j m = (deleteRowAt i . deleteColumnAt j) m
 
-||| get a vector of indices/fins of length n
-||| @ n length of the vector
-fins : (n : Nat) -> Vect n (Fin n)
-fins Z = Nil
-fins (S n) = FZ :: map FS (fins n)
-
 ||| distribute an element to a vector and get a vector of pairs
 distribute : a -> Vect n b -> Vect n (a,b)
 distribute elem v = map (\x => (elem, x)) v
+
+updateRow : (Fin r) -> (f : t -> t) -> Matrix r c t -> Matrix r c t
+updateRow {r} {c} {t} row f m = updateAt row (update' f) (the (Vect r (Vect c t)) m) where
+                                update' : (t -> t) -> (Vect c t -> Vect c t)
+                                update' f = \v => map f v
 
 -----------------------------------------------------------------------
 --                        Special matrices
@@ -185,3 +184,15 @@ rewriteSingleton {c} v = rewrite sym $ multOneLeftNeutral c in v
 splitVect : (r : Nat) -> (c : Nat) -> (v : Vect (r * c) t) ->  Matrix r c t
 splitVect (S Z) c v = [(rewriteSingleton v)]
 splitVect (S r) c v = (take c v) :: splitVect r c (drop c v)
+
+||| successively apply a list of function to a value
+successiveApply : List (a -> a) -> a -> a
+successiveApply [] a = id a
+successiveApply (f::fs) a = successiveApply fs (f a)
+
+||| swap two rows in a matrix
+swapRows : Fin r -> Fin r -> Matrix r c t -> Matrix r c t
+swapRows x y m = (replaceAt y (getRow x m)) . replaceAt x (getRow y m) $ m
+
+joinM : Matrix r c t -> Matrix r c' t -> Matrix r (c+c') t
+joinM m1 m2 = Vect.zipWith (++) m1 m2

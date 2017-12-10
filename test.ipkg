@@ -7,8 +7,10 @@ modules = Numdris.Matrix
         , Test.VectorTest
         , Test.NDVectTest
         , Test.PolynomialTest
+        , Test.GaussianEliminationTest
 
 tests = Test.MatrixTest.specSuite
       , Test.VectorTest.specSuite
       , Test.NDVectTest.specSuite
       , Test.PolynomialTest.specSuite
+      , Test.GaussianEliminationTest.specSuite

@@ -93,10 +93,12 @@ minors {n} m = let indices = indicesMatrix (S n) (S n)
                in iterateM (\(i,j) => determinant $ submatrix i j m) indices
 
 ||| calculate the inverse of a matrix
-inverse : (Fractional t, Field t) => (m : Matrix (S n) (S n) t) -> Matrix (S n) (S n) t
-inverse {n} m = let det = determinant m
-                    transposeCofactor = Vect.transpose (zipMWith (*) (minors m) (cofactorMatrix (S n) (S n)))
-                    in iterateM (* (1/det)) transposeCofactor
+inverse : (Fractional t, Field t) => (m : Matrix (S n) (S n) t) -> Maybe (Matrix (S n) (S n) t)
+inverse {n} m = if determinant m == zero then Nothing
+                else let det = determinant m
+                         transposeCofactor = Vect.transpose (zipMWith (*) (minors m) (cofactorMatrix (S n) (S n)))
+                     in Just $ iterateM (* (1/det)) transposeCofactor
+
 
 -----------------------------------------------------------------------
 --                        Complex field operations

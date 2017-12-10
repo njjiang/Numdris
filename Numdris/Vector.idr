@@ -26,6 +26,13 @@ Neg t => Neg (Vect len t) where
     abs = map abs
     negate = map negate
 
+
+Cast (Vect n Int) (Vect n Double) where
+     cast = map (cast {to=Double})
+
+Cast (Vect n Nat) (Vect n Double) where
+     cast = map (cast {to=Double})
+
 ||| initialize a vector of some length filled with zeros
 ||| @ len length of the vector to initialize
 zeros : (Num t) => (len : Nat) -> Vect len t
@@ -157,3 +164,13 @@ orthorgonalize v w = w `subtract` (scale ((dot v w)/(dot v v)) v)
 ||| make the current vector orthorgonalize to a list of vectors
 orthorgonalizeAll : Vect len Double -> List (Vect len Double) -> Vect len Double
 orthorgonalizeAll v vs = foldl orthorgonalize v vs
+
+
+||| get a vector of indices/fins of length n
+||| @ n length of the vector
+fins : (n : Nat) -> Vect n (Fin n)
+fins Z = Nil
+fins (S n) = FZ :: map FS (fins n)
+
+indexed : Vect n t -> Vect n (Fin n, t)
+indexed {n} v = zip (fins n) v

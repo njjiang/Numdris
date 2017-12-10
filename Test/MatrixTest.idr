@@ -65,6 +65,11 @@ testminv = [[0.2, 0.2, -0.0],
             [-0.2, 0.30000000000000004, 1.0],
             [0.2, -0.30000000000000004, 0.0]]
 
+inversebar1 : Matrix 3 3 Double
+inversebar1 = iterateM (/6) [[3,-15,9],[-6,12,-6],[3,1,-1]]
+
+bar1 : Matrix 3 3 Double
+bar1 = [[1,1,3], [4,5,6],[7,8,9]]
 
 algebraSpec : SpecTree
 algebraSpec = describe "Test matrix algebra" $ do
@@ -75,7 +80,8 @@ algebraSpec = describe "Test matrix algebra" $ do
               it "determinant" $ do
                  determinant mdet `shouldBe` 32
               it "inverse" $ do
-                 inverse testm `shouldBe` testminv
+                 inverse testm `shouldBe` (Just testminv)
+                 inverse bar1 `shouldBe` (Just inversebar1)
 
 
 m3 : Matrix 2 2 (Complex Integer)
