@@ -8,9 +8,12 @@ modules = Numdris.Matrix
         , Test.NDVectTest
         , Test.PolynomialTest
         , Test.GaussianEliminationTest
+        , Test.SparseMatrixTest
+        , Data.SortedMap
 
 tests = Test.MatrixTest.specSuite
       , Test.VectorTest.specSuite
       , Test.NDVectTest.specSuite
       , Test.PolynomialTest.specSuite
       , Test.GaussianEliminationTest.specSuite
+      , Test.SparseMatrixTest.specSuite

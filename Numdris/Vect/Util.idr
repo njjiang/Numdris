@@ -1,8 +1,8 @@
--- ------------------------------------------------------------- [ Vector.idr ]
--- Module      : Numdris.Vector
+-- ------------------------------------------------------------- [ Util.idr ]
+-- Module      : Numdris.Vect.Util
 -- Description : some basic vector operations
 --------------------------------------------------------------------- [ EOH ]
-module Numdris.Vector
+module Numdris.Vect.Util
 
 import Data.Vect as Vect
 import Numdris.Field
@@ -146,7 +146,7 @@ pad v elem padLen = v ++ (replicate padLen elem)
 
 ||| calculate the mean of an nonempty vector
 mean : (v : Vect (S n) Double) -> Double
-mean {n} v =  (Vector.sum v) / (cast {to=Double} (S n))
+mean {n} v =  (Util.sum v) / (cast {to=Double} (S n))
 
 ||| compute the norm/length of a vector
 norm : Vect len Double -> Double

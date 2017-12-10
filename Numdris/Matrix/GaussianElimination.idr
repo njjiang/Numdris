@@ -10,7 +10,7 @@ import Data.Complex
 import Numdris.Field
 import Numdris.Matrix
 import Numdris.Matrix.Algebra
-import Numdris.Vector
+import Numdris.Vect.Util
 import Debug.Error
 
 %language ElabReflection
@@ -33,7 +33,7 @@ Eq (RowOp r) where
 
 ||| add updates the first parameter
 operate : RowOp r -> Matrix r c Double -> Matrix r c Double
-operate (Multiply row s) m = Vect.updateAt row (Vector.scale s) m
+operate (Multiply row s) m = Vect.updateAt row (scale s) m
 operate (Add x scalar y) m = if scalar == 1.0 then Vect.updateAt x (add (getRow y m)) m
                              else Vect.updateAt x (add $ scale scalar (getRow y m)) m
 operate (Swap x y) m = swapRows x y m
@@ -58,7 +58,6 @@ eliminateEntry pivotRow rowx pivot x = if x == 0.0
 
 subcolumnsAfterIndex : (n : Fin r) -> List t -> List t
 subcolumnsAfterIndex n v = drop (S (finToNat n)) v
-
 
 rowContainsPivot : Vect len Double -> Bool
 rowContainsPivot Nil = False
@@ -121,6 +120,11 @@ eliminateAllColumns {r} {c} m = eliminateAllColumns' m rc []
 
 
 
+||| find the upper trianglar matrix of some square matrix
+partial
+findUpper : Matrix n n Double -> (Matrix n n Double, List (List (RowOp n)))
+findUpper = eliminateAllColumns
+
 ||| invert an operation
 invertOp : RowOp r -> RowOp r
 invertOp (Multiply x y) = Multiply x (1/y)
@@ -153,59 +157,3 @@ findInverse : Matrix n n Double -> Maybe (Matrix n n Double)
 findInverse {n} m = if determinant m == 0.0 then Nothing
                     else let m' = joinM m (identityM n)
                          in Just $ dropM 0 n (fst (eliminateAllColumns m'))
-
-
-
-partial
-foo3 : Matrix 2 6 Double
-foo3 = splitVect 2 6 (cast {to=Vect (2*6) Double} (natRangeVect 12))
-
--- eliminatetestm : List (RowOp 3)
--- eliminatetestm = eliminateColumn' testm FZ FZ
-
--- meh : (Matrix 3 4 Double, List (RowOp 3))
--- meh = eliminateAllColumns testm
-
--- mmeh : Matrix 3 4 Double
--- mmeh = fst $ eliminateAllColumns testm
-
--- elimmmeh : Matrix 3 4 Double
--- elimmmeh = [[4.0, 5.0, 6.0, 7.0], [0.0, 1.0, 2.0, 3.0], [0.0, 0.0, 0.0, 0.0]]
-
--- workm : Bool
--- workm = mmeh == elimmmeh
-
--- foo : Matrix 3 4 Double
--- foo = fromList $ [[4.0, 5.0, 6.0, 7.0], [0.0, 1.0, 2.0, 3.0], [8.0, 9.0, 10.0, 11.0]]
-
--- fooelim : List (RowOp 3)
--- fooelim = eliminateColumn' foo FZ FZ
-
-
--- testm' : Matrix 3 4 Double
--- testm' = successiveApply ops testm where
---          ops : List (Matrix 3 4 Double -> Matrix 3 4 Double)
---          ops = map operate eliminatetestm
-
--- testm'ops : List (RowOp 3)
--- testm'ops = eliminateColumn' testm' (FS FZ) (FS FZ)
-
--- testm'' : Matrix 3 4 Double
--- testm'' = applyOps (testm'ops) testm'
-
-
--- testm'''ops : List (RowOp 3)
--- testm'''ops = eliminateColumn' testm' (FS (FS FZ)) (FS (FS FZ))
-
--- testm''' : Matrix 3 4 Double
--- testm''' = applyOps testm'''ops testm''
-
-
--- foo1 : Matrix 1 1 Double
--- foo1 = [[1]]
-
--- elimfoo1 : Matrix 1 1 Double
--- elimfoo1 = fst $ eliminateAllColumns foo1
-
--- work : Bool
--- work = foo1 == elimfoo1

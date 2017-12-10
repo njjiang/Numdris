@@ -7,7 +7,7 @@ module Numdris.NDVect
 
 import Data.Vect
 import Data.Complex
-import Numdris.Vector
+import Numdris.Vect.Util
 import Numdris.Matrix
 import Numdris.Matrix.Algebra as MA
 import Numdris.Field

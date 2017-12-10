@@ -7,18 +7,38 @@
 module Numdris.SparseMatrix
 
 import Data.Vect
+import Data.List
 import Data.SortedMap
 import Data.Complex
 import Numdris.Field
 import Numdris.Matrix
 import Numdris.Matrix.Algebra
-import Numdris.Vector
+import Numdris.Vect.Util
 
 %access public export
 
 ||| a sparse matrix of size r x c has a mapping from indices to nonzero values
 data SparseMatrix : (r : Nat) -> (c : Nat) -> (t : Type) -> Type where
      MkSparseMatrix : (indexValueMap : SortedMap (Fin r, Fin c) t) -> SparseMatrix r c t
+
+
+lookupRow' : Fin r -> Fin c -> SortedMap (Fin r, Fin c) t -> Maybe (Fin c, t)
+lookupRow' i j m = case (lookup (i,j) m) of
+                   Just v => Just (j,v)
+                   Nothing => Nothing
+
+||| lookup a row in a sparse matrix
+lookupRow : Fin r -> SortedMap (Fin r, Fin c) t -> SortedMap (Fin c) t
+lookupRow {c} i m = fromList .  catMaybes $ map (\j => lookupRow' i j m) (toList $ fins c)
+
+lookupColumn' : Fin r -> Fin c -> SortedMap (Fin r, Fin c) t -> Maybe (Fin r, t)
+lookupColumn' i j m = case (lookup (i,j) m) of
+                      Just v => Just (i,v)
+                      Nothing => Nothing
+
+||| lookup a column in a sparse matrix
+lookupColumn : Fin c -> SortedMap (Fin r, Fin c) t -> SortedMap (Fin r) t
+lookupColumn {r} j m = fromList .  catMaybes $ map (\i => lookupColumn' i j m) (toList $ fins r)
 
 
 indexValueMap : SparseMatrix r c t -> SortedMap (Fin r, Fin c) t
@@ -81,7 +101,6 @@ getColumn {r} {c} {t} col m = successiveApply replaceAllV (zeros r) where
 implementation (Field t, Num t) => Eq (SparseMatrix r c t) where
     (==) = \m1 => \m2 => (==) (toMatrix m1) (toMatrix m2)
 
-export
 scale : (Num t) => t -> SparseMatrix r c t -> SparseMatrix r c t
 scale const m = MkSparseMatrix $ fromList $ map (\(ind,val) => (ind, val*const)) (toList (indexValueMap m))
 
@@ -100,45 +119,34 @@ addImpl {r} {c} m1 m2 = successiveApply updates m2 where
                         updates = map (\k1 => updatem2 k1 m1 m2) keysm1
 
 
-export
+||| add two sparse matrices
 add : (Field t) => SparseMatrix r c t -> SparseMatrix r c t -> SparseMatrix r c t
 add {r} {c} {t} (MkSparseMatrix m1) (MkSparseMatrix m2) = MkSparseMatrix ((addImpl{r=r}{c=c}{t=t}) m1 m2)
 
--- multiply : SparseMatrix r c t -> SparseMatrix r c t -> SparseMatrix r c t
--- multiply {r} {c} {t} (MkSparseMatrix m1) (MkSparseMatrix m2) =
+multiply' : Num t => SortedMap (Fin c) t -> SortedMap (Fin c) t -> (Fin r) -> (Fin r') -> ((Fin r, Fin r'), t)
+multiply' {r} {c} {r'} {t} rowi colj i j = ((i,j), Foldable.sum (zipWith (*) rowi' colj'))
+          where
+          nonzeropos : List (Fin c)
+          nonzeropos = intersect (keys rowi) (keys colj)
+          rowi' : List t
+          rowi' = catMaybes $ map (\k => lookup k rowi) nonzeropos
+          colj' : List t
+          colj' = catMaybes $ map (\k => lookup k colj) nonzeropos
+
+
+||| multiply two sparse matrices
+multiply : (Num t) => SparseMatrix r c t -> SparseMatrix c r' t -> SparseMatrix r r' t
+multiply {r} {c} {r'} {t} (MkSparseMatrix m1) (MkSparseMatrix m2) = MkSparseMatrix $ (fromList res)
+         where
+         indexedm : List (Fin r, Fin r')
+         indexedm = toList $ indices r r'
+         res : List ((Fin r, Fin r'), t)
+         res = map (\(i,j) => multiply' (lookupRow i m1) (lookupColumn j m2) i j) indexedm
+
 
 transpose : SparseMatrix r c t -> SparseMatrix c r t
 transpose m = MkSparseMatrix $ fromList $ map (\(ind,val) => (swap ind, val)) (toList (indexValueMap m))
 
-emptysparse : SparseMatrix 3 3 Integer
-emptysparse = MkSparseMatrix $ fromList []
--- [[0, 2,0],[3,0,0],[0,0,0]]
-testsparse : SparseMatrix 3 3 Integer
-testsparse = MkSparseMatrix $ fromList [((FS FZ, FZ), 3), ((FZ, FS FZ), 2)]
 
--- [[1, 42,0],[0,0,0],[0,0,0]]
-testsparse1 : SparseMatrix 3 3 Integer
-testsparse1 = MkSparseMatrix $ fromList [((FZ, FZ), 1), ((FZ, FS FZ), 42)]
-
-testsparseadd : SparseMatrix 3 3 Integer
-testsparseadd = MkSparseMatrix $ fromList [((FZ, FZ), 1), ((FS FZ, FZ), 3), ((FZ, FS FZ), 44)]
-
--- (add testsparse testsparse1) == testsparseadd
--- True : Bool
--- λΠ> (add testsparse1 testsparse) == testsparseadd
--- True : Bool
--- λΠ> (add emptysparse testsparse) == testsparse
--- True : Bool
--- λΠ> (add testsparse emptysparse) == testsparse
--- True
-
-
--- λΠ> toMatrix testsparse
--- [[0, 0, 0], [0, 0, 0], [0, 0, 0]] : Vect 3 (Vect 3 Integer)
--- Type checking ./Numdris/SparseMatrix.idr
--- λΠ> toMatrix testsparse
--- [[0, 2, 0], [3, 0, 0], [0, 0, 0]] : Vect 3 (Vect 3 Integer)
--- λΠ> replaceEntry (FZ, FS FZ) 0 testsparse
--- MkSparseMatrix (M 0 (Leaf (FS FZ, FZ) 3)) : SparseMatrix 3 3 Integer
--- λΠ> toMatrix $ replaceEntry (FZ, FS FZ) 0 testsparse
--- [[0, 0, 0], [3, 0, 0], [0, 0, 0]] : Vect 3 (Vect 3 Integer)
+(Num t, Show t) => Show (SparseMatrix r c t) where
+     show m = show (toMatrix m)

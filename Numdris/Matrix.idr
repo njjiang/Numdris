@@ -10,7 +10,7 @@ module Numdris.Matrix
 import Data.Vect as V
 import Data.Complex as C
 import Numdris.Field
-import Numdris.Vector
+import Numdris.Vect.Util
 
 %access public export
 
@@ -131,7 +131,7 @@ fill elem r c = replicate r (replicate c elem)
 
 ||| construct a r x c matrix filled with zero
 zerosM : (Num t) => (r : Nat) -> (c : Nat) -> Matrix r c t
-zerosM r c = replicate r (Vector.zeros c)
+zerosM r c = replicate r (zeros c)
 
 ||| construct an n x n identity matrix
 identityM : (Num t, Field t) => (n : Nat) -> Matrix n n t

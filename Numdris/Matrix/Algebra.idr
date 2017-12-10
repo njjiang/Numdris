@@ -1,14 +1,13 @@
 -- ------------------------------------------------------------- [ Algebra.idr ]
 -- Module      : Numdris.Matrix.Algebra
 -- Description : Definitions for matrices
---
 --------------------------------------------------------------------- [ EOH ]
 
 module Numdris.Matrix.Algebra
 
 import Data.Vect
 import Data.Complex
-import Numdris.Vector
+import Numdris.Vect.Util
 import Numdris.Matrix
 import Numdris.Field
 import Effects
@@ -45,7 +44,7 @@ trace m = foldl1 (+) (diag m)
 ||| @ m1 the first matrix
 ||| @ m2 the second matrix
 addM : (Field t) => (m1 : Matrix r c t) -> (m2 : Matrix r c t) -> Matrix r c t
-addM = zipWith Vector.add
+addM = zipWith add
 
 ||| multiply two matrices
 multiplyM : (Field t) => Matrix r c t -> Matrix c r' t -> Matrix r r' t
@@ -55,7 +54,7 @@ multiplyM m1 m2 = let m2' = transpose m2 in
 
 ||| mua matrix by a column vector
 multiplyVect : (Field t) => Matrix r c t -> Vect c t -> Vect r t
-multiplyVect m v = map (Vector.dot v) m
+multiplyVect m v = map (dot v) m
 
 ||| flatten a r x c matrix to a vector of length r * c
 flatten : (Field t) => (m : Matrix r c t) -> Vect (r * c) t
@@ -172,42 +171,42 @@ eigenvectors {n} matrix precision = do
 ||| @ m the matrix
 ||| @ row the index of the row
 maxAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
-maxAlongRow m row = Vector.max $ getRow row m
+maxAlongRow m row = max $ getRow row m
 
 ||| get the min element along a row in a matrix
 ||| undefined for empty matrix
 ||| @ m the matrix
 ||| @ row the index of the row
 minAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
-minAlongRow m row = Vector.min $ getRow row m
+minAlongRow m row = min $ getRow row m
 
 ||| get the max element along a column in a matrix
 ||| undefined for empty matrix
 ||| @ m the matrix
 ||| @ col the index of the column
 maxAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
-maxAlongColumn m col = Vector.max $ getColumn col m
+maxAlongColumn m col = max $ getColumn col m
 
 ||| get the min element along a column in a matrix
 ||| undefined for empty matrix
 ||| @ m the matrix
 ||| @ col the index of the column
 minAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
-minAlongColumn m col = Vector.min $ getColumn col m
+minAlongColumn m col = min $ getColumn col m
 
 ||| get the argmax element along a row in a matrix
 ||| undefined for empty matrix
 ||| @ m the matrix
 ||| @ row the index of the row
 argmaxAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> (Fin (S r), Fin (S c))
-argmaxAlongRow m row = let col = Vector.argmax $ getRow row m in
+argmaxAlongRow m row = let col = argmax $ getRow row m in
                        (row, col)
 ||| get the argmin element along a row in a matrix
 ||| undefined for empty matrix
 ||| @ m the matrix
 ||| @ row the index of the row
 argminAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> (Fin (S r), Fin (S c))
-argminAlongRow m row = let col = Vector.argmin $ getRow row m in
+argminAlongRow m row = let col = argmin $ getRow row m in
                        (row, col)
 
 ||| get the argmax element along a column in a matrix
@@ -215,7 +214,7 @@ argminAlongRow m row = let col = Vector.argmin $ getRow row m in
 ||| @ m the matrix
 ||| @ col the index of the column
 argmaxAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> (Fin (S r), Fin (S c))
-argmaxAlongColumn m col = let row = Vector.argmax $ getColumn col m in
+argmaxAlongColumn m col = let row = argmax $ getColumn col m in
                               (row, col)
 
 ||| get the argmin element along a column in a matrix
@@ -223,24 +222,24 @@ argmaxAlongColumn m col = let row = Vector.argmax $ getColumn col m in
 ||| @ m the matrix
 ||| @ col the index of the column
 argminAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> (Fin (S r), Fin (S c))
-argminAlongColumn m col = let row = Vector.argmin $ getColumn col m in
+argminAlongColumn m col = let row = argmin $ getColumn col m in
                           (row, col)
 
 ||| sum along row
 sumAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
-sumAlongRow m row = Vector.sum $ getRow row m
+sumAlongRow m row = Util.sum $ getRow row m
 
-||| product along column
+||| sum along column
 sumAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
-sumAlongColumn m col = Vector.sum $ getColumn col m
+sumAlongColumn m col = Util.sum $ getColumn col m
 
 ||| product along row
 productAlongRow : (Field t) => (m : Matrix (S r) (S c) t) -> (row : Fin (S r)) -> t
-productAlongRow m row = Vector.product $ getRow row m
+productAlongRow m row = Util.product $ getRow row m
 
 ||| product along column
 productAlongColumn : (Field t) => (m : Matrix (S r) (S c) t) -> (col : Fin (S c)) -> t
-productAlongColumn m col = Vector.product $ getColumn col m
+productAlongColumn m col = Util.product $ getColumn col m
 
 
 

@@ -5,5 +5,9 @@ pkgs = specdris, effects
 
 modules = Numdris.Field
         , Numdris.Matrix
-        , Numdris.Vector
         , Numdris.NDVect
+        , Numdris.SparseMatrix
+        , Numdris.Polynomial
+        , Numdris.Matrix.Algebra
+        , Numdris.Matrix.GaussianElimination
+        , Numdris.Vect.Util

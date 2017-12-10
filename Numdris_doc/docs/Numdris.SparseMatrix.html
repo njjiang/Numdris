@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html><head><title>IdrisDoc: Numdris.SparseMatrix</title><link type="text/css" rel="stylesheet" href="../styles.css"></head><body class="namespace"><div class="wrapper"><header><strong>IdrisDoc</strong>: Numdris.SparseMatrix<nav><a href="../index.html">Index</a></nav></header><div class="container"><h1>Numdris.SparseMatrix</h1><dl class="decls"><dt id="Numdris.SparseMatrix.transpose"><span class="name function" title="Numdris.SparseMatrix.transpose">transpose</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.toMatrix"><span class="name function" title="Numdris.SparseMatrix.toMatrix">toMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>computes the correspoding matrix for a sparse matrix</p>
+</dd><dt id="Numdris.SparseMatrix.scale"><span class="name function" title="Numdris.SparseMatrix.scale">scale</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.replaceEntry"><span class="name function" title="Numdris.SparseMatrix.replaceEntry">replaceEntry</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">pos</span> : <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>) ->
+(<span class="boundvar" title="">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>replace an entry in a sparse matrix</p>
+</dd><dt id="Numdris.SparseMatrix.replaceAll"><span class="name function" title="Numdris.SparseMatrix.replaceAll">replaceAll</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> (<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>)</span></dt><dd></dd><dt id="Numdris.SparseMatrix.nonzeroValues"><span class="name function" title="Numdris.SparseMatrix.nonzeroValues">nonzeroValues</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.nonzeroIndices"><span class="name function" title="Numdris.SparseMatrix.nonzeroIndices">nonzeroIndices</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd></dd><dt id="Numdris.SparseMatrix.multiply&#39;"><span class="name function" title="Numdris.SparseMatrix.multiply&#39;">multiply&#39;</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> (<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> (<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r&#39;</span> ->
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r&#39;</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd></dd><dt id="Numdris.SparseMatrix.multiply"><span class="name function" title="Numdris.SparseMatrix.multiply">multiply</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">r&#39;</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">r&#39;</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>multiply two sparse matrices</p>
+</dd><dt id="Numdris.SparseMatrix.lookupRow&#39;"><span class="name function" title="Numdris.SparseMatrix.lookupRow&#39;">lookupRow&#39;</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Prelude.Maybe.Maybe" href="Prelude.Maybe.html#Prelude.Maybe.Maybe">Maybe</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd></dd><dt id="Numdris.SparseMatrix.lookupRow"><span class="name function" title="Numdris.SparseMatrix.lookupRow">lookupRow</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> (<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>lookup a row in a sparse matrix</p>
+</dd><dt id="Numdris.SparseMatrix.lookupColumn&#39;"><span class="name function" title="Numdris.SparseMatrix.lookupColumn&#39;">lookupColumn&#39;</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Prelude.Maybe.Maybe" href="Prelude.Maybe.html#Prelude.Maybe.Maybe">Maybe</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd></dd><dt id="Numdris.SparseMatrix.lookupColumn"><span class="name function" title="Numdris.SparseMatrix.lookupColumn">lookupColumn</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> (<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>lookup a column in a sparse matrix</p>
+</dd><dt id="Numdris.SparseMatrix.indexValueMap"><span class="name function" title="Numdris.SparseMatrix.indexValueMap">indexValueMap</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.getRow"><span class="name function" title="Numdris.SparseMatrix.getRow">getRow</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.getColumn"><span class="name function" title="Numdris.SparseMatrix.getColumn">getColumn</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.fromMatrix"><span class="name function" title="Numdris.SparseMatrix.fromMatrix">fromMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>computes the sparse matrix given a matrix</p>
+</dd><dt id="Numdris.SparseMatrix.entry"><span class="name function" title="Numdris.SparseMatrix.entry">entry</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>look up an entry from a sparse matrix</p>
+</dd><dt id="Numdris.SparseMatrix.addImpl"><span class="name function" title="Numdris.SparseMatrix.addImpl">addImpl</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.SparseMatrix.add"><span class="name function" title="Numdris.SparseMatrix.add">add</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>add two sparse matrices</p>
+</dd><dt id="Numdris.SparseMatrix.SparseMatrix"><span class="word">data&nbsp;</span><span class="name type" title="Numdris.SparseMatrix.SparseMatrix">SparseMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">t</span> : <span class="type" title="Type">Type</span>) ->
+<span class="type" title="Type">Type</span></span></dt><dd><p>a sparse matrix of size r x c has a mapping from indices to nonzero values</p>
+<dl class="decls"><dt id="Numdris.SparseMatrix.MkSparseMatrix"><span class="name constructor" title="Numdris.SparseMatrix.MkSparseMatrix">MkSparseMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">indexValueMap</span> : <a class="type" title="Data.SortedMap.SortedMap" href="Data.SortedMap.html#Data.SortedMap.SortedMap">SortedMap</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Numdris.SparseMatrix.SparseMatrix" href="Numdris.SparseMatrix.html#Numdris.SparseMatrix.SparseMatrix">SparseMatrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd></dl></dd></dl></div></div><footer>Produced by IdrisDoc version 1.0</footer></body></html>

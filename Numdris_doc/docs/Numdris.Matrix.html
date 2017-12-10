@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html><head><title>IdrisDoc: Numdris.Matrix</title><link type="text/css" rel="stylesheet" href="../styles.css"></head><body class="namespace"><div class="wrapper"><header><strong>IdrisDoc</strong>: Numdris.Matrix<nav><a href="../index.html">Index</a></nav></header><div class="container"><h1>Numdris.Matrix</h1><dl class="decls"><dt id="Numdris.Matrix.zipMWith"><span class="name function" title="Numdris.Matrix.zipMWith">zipMWith</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="implicit boundvar" title="">a</span> ->
+<span class="implicit boundvar" title="">b</span> ->
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">a</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">b</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>zip two matrices with some function applied</p>
+</dd><dt id="Numdris.Matrix.zipM"><span class="name function" title="Numdris.Matrix.zipM">zipM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">a</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">b</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><span class="implicit boundvar" title="">a</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">b</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>zip two matrices</p>
+</dd><dt id="Numdris.Matrix.zerosM"><span class="name function" title="Numdris.Matrix.zerosM">zerosM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="boundvar" title="">r</span>
+<span class="boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>construct a r x c matrix filled with zero</p>
+</dd><dt id="Numdris.Matrix.updateRow"><span class="name function" title="Numdris.Matrix.updateRow">updateRow</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+(<span class="boundvar" title="">f</span> : <span class="implicit boundvar" title="">t</span> ->
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.Matrix.takeM"><span class="name function" title="Numdris.Matrix.takeM">takeM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the number of row in the submatrix">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="the number of column in the submatrix">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="original matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<span class="documented boundvar" title="the number of row in the submatrix">r</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="implicit boundvar" title="">r&#39;</span>)
+(<span class="documented boundvar" title="the number of column in the submatrix">c</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="implicit boundvar" title="">c&#39;</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="documented boundvar" title="the number of row in the submatrix">r</span>
+<span class="documented boundvar" title="the number of column in the submatrix">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>take the upperleft r x c submatrix of matrix m</p>
+<dl><dt>r</dt><dd><p>the number of row in the submatrix</p>
+</dd><dt>c</dt><dd><p>the number of column in the submatrix</p>
+</dd><dt>m</dt><dd><p>original matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.swapRows"><span class="name function" title="Numdris.Matrix.swapRows">swapRows</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>swap two rows in a matrix</p>
+</dd><dt id="Numdris.Matrix.successiveApply"><span class="name function" title="Numdris.Matrix.successiveApply">successiveApply</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> (<span class="implicit boundvar" title="">a</span> ->
+<span class="implicit boundvar" title="">a</span>) ->
+<span class="implicit boundvar" title="">a</span> ->
+<span class="implicit boundvar" title="">a</span></span></dt><dd><p>successively apply a list of function to a value</p>
+</dd><dt id="Numdris.Matrix.submatrix"><span class="name function" title="Numdris.Matrix.submatrix">submatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the row to delete">i</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)) ->
+(<span class="documented boundvar" title="the column to delete">j</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)) ->
+(<span class="documented boundvar" title="the matrix to delete from">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)
+(<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>calculate the submatrix by deleting a row and a column</p>
+<dl><dt>i</dt><dd><p>the row to delete</p>
+</dd><dt>j</dt><dd><p>the column to delete</p>
+</dd><dt>m</dt><dd><p>the matrix to delete from</p>
+</dd></dl></dd><dt id="Numdris.Matrix.splitVect"><span class="name function" title="Numdris.Matrix.splitVect">splitVect</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<span class="boundvar" title="">r</span> <a class="function" title="Prelude.Interfaces.*" href="Prelude.Interfaces.html#Prelude.Interfaces.*">*</a>
+<span class="boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="boundvar" title="">r</span>
+<span class="boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>split a vector of r*c size to a r x c matrix</p>
+</dd><dt id="Numdris.Matrix.rewriteSingleton"><span class="name function" title="Numdris.Matrix.rewriteSingleton">rewriteSingleton</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="function" title="Prelude.Interfaces.fromInteger" href="Prelude.Interfaces.html#Prelude.Interfaces.fromInteger">fromInteger</a> <span class="data" title="1">1</span> <a class="function" title="Prelude.Interfaces.*" href="Prelude.Interfaces.html#Prelude.Interfaces.*">*</a>
+<span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>helper function for type checking</p>
+</dd><dt id="Numdris.Matrix.replaceEntry"><span class="name function" title="Numdris.Matrix.replaceEntry">replaceEntry</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the index to be replaced">index</span> : <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>) ->
+(<span class="documented boundvar" title="the new element to replace with">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the original matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>set entry of a matrix to be some element</p>
+<dl><dt>index</dt><dd><p>the index to be replaced</p>
+</dd><dt>elem</dt><dd><p>the new element to replace with</p>
+</dd><dt>m</dt><dd><p>the original matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.padM"><span class="name function" title="Numdris.Matrix.padM">padM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="boundvar" title="">r&#39;</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c&#39;</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<span class="implicit boundvar" title="">r</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="boundvar" title="">r&#39;</span>)
+(<span class="implicit boundvar" title="">c</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="boundvar" title="">c&#39;</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>expand a matrix with some padding elements</p>
+</dd><dt id="Numdris.Matrix.nonzeros"><span class="name function" title="Numdris.Matrix.nonzeros">nonzeros</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>get the positions and values of nonzero entries of a matrix</p>
+</dd><dt id="Numdris.Matrix.joinM"><span class="name function" title="Numdris.Matrix.joinM">joinM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c&#39;</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+(<span class="implicit boundvar" title="">c</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="implicit boundvar" title="">c&#39;</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.Matrix.iterateM"><span class="name function" title="Numdris.Matrix.iterateM">iterateM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">f</span> : <span class="implicit boundvar" title="">t</span> ->
+<span class="implicit boundvar" title="">t&#39;</span>) ->
+(<span class="boundvar" title="">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t&#39;</span></span></dt><dd><p>map an operation on a matrix</p>
+</dd><dt id="Numdris.Matrix.insertRowAt"><span class="name function" title="Numdris.Matrix.insertRowAt">insertRowAt</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the index to insert at">i</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)) ->
+(<span class="documented boundvar" title="the new row to insert">row</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the original matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>insert a row to a matrix</p>
+<dl><dt>i</dt><dd><p>the index to insert at</p>
+</dd><dt>row</dt><dd><p>the new row to insert</p>
+</dd><dt>m</dt><dd><p>the original matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.insertColumnAt"><span class="name function" title="Numdris.Matrix.insertColumnAt">insertColumnAt</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the index to insert at">j</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)) ->
+(<span class="documented boundvar" title="the new column to insert">column</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the original matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+(<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>insert a column to a matrix</p>
+<dl><dt>j</dt><dd><p>the index to insert at</p>
+</dd><dt>column</dt><dd><p>the new column to insert</p>
+</dd><dt>m</dt><dd><p>the original matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.indicesMatrix"><span class="name function" title="Numdris.Matrix.indicesMatrix">indicesMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="boundvar" title="">r</span>
+<span class="boundvar" title="">c</span>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>get a matrix of indices of a rxc matrix</p>
+</dd><dt id="Numdris.Matrix.indices"><span class="name function" title="Numdris.Matrix.indices">indices</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<span class="boundvar" title="">r</span> <a class="function" title="Prelude.Interfaces.*" href="Prelude.Interfaces.html#Prelude.Interfaces.*">*</a>
+<span class="boundvar" title="">c</span>)
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>get a list of indices of a rxc matrix</p>
+</dd><dt id="Numdris.Matrix.indexedMatrix"><span class="name function" title="Numdris.Matrix.indexedMatrix">indexedMatrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>construct a matrix with value paired with its index</p>
+</dd><dt id="Numdris.Matrix.identityM"><span class="name function" title="Numdris.Matrix.identityM">identityM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">n</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="boundvar" title="">n</span>
+<span class="boundvar" title="">n</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>construct an n x n identity matrix</p>
+</dd><dt id="Numdris.Matrix.getRow"><span class="name function" title="Numdris.Matrix.getRow">getRow</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="index of the row to get">i</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span>) ->
+(<span class="documented boundvar" title="the matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>get the row of matrix by index</p>
+<dl><dt>i</dt><dd><p>index of the row to get</p>
+</dd><dt>m</dt><dd><p>the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.getColumn"><span class="name function" title="Numdris.Matrix.getColumn">getColumn</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">j</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span>) ->
+(<span class="documented boundvar" title="the matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>get the column of matrix by index<br />
+adds two natural numbers| @ j index of the column to get</p>
+<dl><dt>m</dt><dd><p>the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.fill"><span class="name function" title="Numdris.Matrix.fill">fill</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="boundvar" title="">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="boundvar" title="">r</span>
+<span class="boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>fill a r x c matrix with some element</p>
+</dd><dt id="Numdris.Matrix.entry&#39;"><span class="name function" title="Numdris.Matrix.entry&#39;">entry&#39;</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="index of the row position to get">i</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span>) ->
+(<span class="documented boundvar" title="index of the column position to get">j</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span>) ->
+(<span class="documented boundvar" title="the matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>get an entry at position (i, j) of a matrix</p>
+<dl><dt>i</dt><dd><p>index of the row position to get</p>
+</dd><dt>j</dt><dd><p>index of the column position to get</p>
+</dd><dt>m</dt><dd><p>the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.entry"><span class="name function" title="Numdris.Matrix.entry">entry</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a> ->
+(<span class="boundvar" title="">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>get an entry at position (i, j) of a matrix</p>
+</dd><dt id="Numdris.Matrix.dropM"><span class="name function" title="Numdris.Matrix.dropM">dropM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="the number of row in the submatrix">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="the number of column in the submatrix">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="original matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<span class="documented boundvar" title="the number of row in the submatrix">r</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="implicit boundvar" title="">r&#39;</span>)
+(<span class="documented boundvar" title="the number of column in the submatrix">c</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="implicit boundvar" title="">c&#39;</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r&#39;</span>
+<span class="implicit boundvar" title="">c&#39;</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>drop the upperleft r x c submatrix of matrix m</p>
+<dl><dt>r</dt><dd><p>the number of row in the submatrix</p>
+</dd><dt>c</dt><dd><p>the number of column in the submatrix</p>
+</dd><dt>m</dt><dd><p>original matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.distribute"><span class="name function" title="Numdris.Matrix.distribute">distribute</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">n</span>
+<span class="implicit boundvar" title="">b</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">n</span>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><span class="implicit boundvar" title="">a</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">b</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd><p>distribute an element to a vector and get a vector of pairs</p>
+</dd><dt id="Numdris.Matrix.deleteRowAt"><span class="name function" title="Numdris.Matrix.deleteRowAt">deleteRowAt</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="index of the row to delete">i</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)) ->
+(<span class="documented boundvar" title="the matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">r</span>)
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>delete a row at a position</p>
+<dl><dt>i</dt><dd><p>index of the row to delete</p>
+</dd><dt>m</dt><dd><p>the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.deleteColumnAt"><span class="name function" title="Numdris.Matrix.deleteColumnAt">deleteColumnAt</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">j</span> : <a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)) ->
+(<span class="documented boundvar" title="the matrix">m</span> : <a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+(<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">c</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="implicit boundvar" title="">r</span>
+<span class="implicit boundvar" title="">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>deleadds two natural numberste a column at a position<br />
+adds two natural numbers@ j index of the column to delete</p>
+<dl><dt>m</dt><dd><p>the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.Matrix"><span class="name function" title="Numdris.Matrix.Matrix">Matrix</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit documented boundvar" title="type of the data the matrix contains">t</span> =>
+(<span class="documented boundvar" title="number of rows in the matrix">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="number of columns in the matrix">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="boundvar" title="">t4</span> : <span class="type" title="Type">Type</span>) ->
+<span class="type" title="Type">Type</span></span></dt><dd><p>type for a matrix of r rows and c columns, containing data of type t</p>
+<dl><dt>t</dt><dd><p>type of the data the matrix contains</p>
+</dd><dt>r</dt><dd><p>number of rows in the matrix</p>
+</dd><dt>c</dt><dd><p>number of columns in the matrix</p>
+</dd></dl></dd><dt id="Numdris.Matrix.EijM"><span class="name function" title="Numdris.Matrix.EijM">EijM</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="number of rows of the matrix">r</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="number of columns of the matrix">c</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="index of the specific element">index</span> : <a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="documented boundvar" title="number of rows of the matrix">r</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="documented boundvar" title="number of columns of the matrix">c</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a>) ->
+(<span class="documented boundvar" title="the specific element">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="function" title="Numdris.Matrix.Matrix" href="Numdris.Matrix.html#Numdris.Matrix.Matrix">Matrix</a> <span class="documented boundvar" title="number of rows of the matrix">r</span>
+<span class="documented boundvar" title="number of columns of the matrix">c</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>construct a r x c matrix with some element at position (i,j) and zero everywhere else</p>
+<dl><dt>r</dt><dd><p>number of rows of the matrix</p>
+</dd><dt>c</dt><dd><p>number of columns of the matrix</p>
+</dd><dt>index</dt><dd><p>index of the specific element</p>
+</dd><dt>elem</dt><dd><p>the specific element</p>
+</dd></dl></dd></dl></div></div><footer>Produced by IdrisDoc version 1.0</footer></body></html>
