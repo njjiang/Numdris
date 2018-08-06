@@ -2,7 +2,6 @@ package Numdris
 
 pkgs = specdris, effects
 
-
 modules = Numdris.Field
         , Numdris.Matrix
         , Numdris.NDVect

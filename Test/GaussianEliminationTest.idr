@@ -35,14 +35,18 @@ bar1 : Matrix 3 3 Double
 bar1 = [[1,1,3], [4,5,6],[7,8,9]]
 
 elimbar1 : Matrix 3 3 Double
-elimbar1 = [[1,1,3], [0,1,-6],[0,0,-6]]
+elimbar1 = [[1,1,3],
+            [0,1,-6],
+            [0,0,-6]]
 
 
 lowerbar1' : Maybe (Matrix 3 3 Double)
 lowerbar1' = findLower bar1
 
 lowerbar1 : Matrix 3 3 Double
-lowerbar1 = [[1,0,0], [4,1,0],[7,1,1]]
+lowerbar1 = [[1,0,0],
+             [4,1,0],
+             [7,1,1]]
 
 singularm : Matrix 3 3 Double
 singularm = [[0,1,2], [3,4,5],[6,7,8]]

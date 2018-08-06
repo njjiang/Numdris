@@ -46,7 +46,6 @@ sparseTest = describe "Test sparse matrices" $ do
                 toMatrix foo `shouldBe` [[0, 2,0],[3,0,0],[0,0,0]]
                 toMatrix (replaceEntry (FZ, FS FZ) 0 foo) `shouldBe` [[0, 0, 0], [3, 0, 0], [0, 0, 0]]
 partial
-
 specSuite : IO ()
 specSuite = spec $ do
             sparseTest

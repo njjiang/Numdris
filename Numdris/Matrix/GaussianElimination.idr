@@ -79,12 +79,12 @@ swapForNonzeroPivot {r} {c} m pivotRow targetCol = case nonzeroCol of
 ||| turn the entries on targetCol below pivotRow all 0s
 ||| by adding some scalar of pivotRow
 partial
-eliminateColumn : Matrix r c Double -> (targetCol : Fin c) -> (pivotRow : Fin r) -> List (RowOp r)
-eliminateColumn {r}{c} m targetCol pivotRow = if pivotentry == 0.0
+eliminateColumnDown : Matrix r c Double -> (targetCol : Fin c) -> (pivotRow : Fin r) -> List (RowOp r)
+eliminateColumnDown {r}{c} m targetCol pivotRow = if pivotentry == 0.0
                                               then let (m', swapOp) = swapForNonzeroPivot m pivotRow targetCol
                                                    in case swapOp of
                                                       Id => []
-                                                      Swap _ _ => (swapOp :: eliminateColumn m' targetCol pivotRow)
+                                                      Swap _ _ => (swapOp :: eliminateColumnDown m' targetCol pivotRow)
                                                       _ => error "not gonna happen"
                                               else map (\(i,rx) => eliminateEntry pivotRow i pivotentry rx) col
                                            where
@@ -97,19 +97,20 @@ eliminateColumn {r}{c} m targetCol pivotRow = if pivotentry == 0.0
 
 
 
+
 applyOps : List (RowOp r) -> Matrix r c Double -> Matrix r c Double
 applyOps ops m = successiveApply (map operate ops) m
 
 partial
-eliminateAllColumns' : Matrix r c Double -> List (Fin c, Fin r) -> List (List (RowOp r)) -> (Matrix r c Double, List (List (RowOp r)))
-eliminateAllColumns' {r} {c} m [] prev = (m,prev)
-eliminateAllColumns' {r} {c} m ((col,row)::xx) prev = let newOps = eliminateColumn m col row
+eliminateAllColumnsDown' : Matrix r c Double -> List (Fin c, Fin r) -> List (List (RowOp r)) -> (Matrix r c Double, List (List (RowOp r)))
+eliminateAllColumnsDown' {r} {c} m [] prev = (m,prev)
+eliminateAllColumnsDown' {r} {c} m ((col,row)::xx) prev = let newOps = eliminateColumnDown m col row
                                                           m' = applyOps newOps m
-                                                      in eliminateAllColumns' m' xx (prev ++ [newOps])
+                                                      in eliminateAllColumnsDown' m' xx (prev ++ [newOps])
 
 partial
-eliminateAllColumns : Matrix r c Double -> (Matrix r c Double, List (List (RowOp r)))
-eliminateAllColumns {r} {c} m = eliminateAllColumns' m rc []
+eliminateAllColumnsDown : Matrix r c Double -> (Matrix r c Double, List (List (RowOp r)))
+eliminateAllColumnsDown {r} {c} m = eliminateAllColumnsDown' m rc []
                               where
                               colIndex : Vect c (Fin c)
                               colIndex = fins c
@@ -123,7 +124,14 @@ eliminateAllColumns {r} {c} m = eliminateAllColumns' m rc []
 ||| find the upper trianglar matrix of some square matrix
 partial
 findUpper : Matrix n n Double -> (Matrix n n Double, List (List (RowOp n)))
-findUpper = eliminateAllColumns
+findUpper = eliminateAllColumnsDown
+
+partial
+eliminateAllColumnsUp' : Matrix r c Double -> (Matrix r c Double, List (List (RowOp n)))
+eliminateAllColumnsUp' {r} {c} m
+
+partial
+eliminateAllColumnsUp : Matrix n n Double -> (Matrix n n Double, List (List (RowOp n)))
 
 ||| invert an operation
 invertOp : RowOp r -> RowOp r
@@ -148,12 +156,12 @@ findLower' m (x::xs) = let m' = successiveApply (map invertOpIdentity x) m in fi
 partial
 findLower : Matrix n n Double -> Maybe (Matrix n n Double)
 findLower {n} m = if determinant m == 0.0 then Nothing
-                  else let (upper, ops) = eliminateAllColumns m
+                  else let (upper, ops) = eliminateAllColumnsDown m
                        in  Just $ findLower' (identityM n) ops
 
-||| find the inverse of an invertible matrix
-partial
-findInverse : Matrix n n Double -> Maybe (Matrix n n Double)
-findInverse {n} m = if determinant m == 0.0 then Nothing
-                    else let m' = joinM m (identityM n)
-                         in Just $ dropM 0 n (fst (eliminateAllColumns m'))
+-- ||| find the inverse of an invertible matrix
+-- partial
+-- findInverse : Matrix n n Double -> Maybe (Matrix n n Double)
+-- findInverse {n} m = if determinant m == 0.0 then Nothing
+--                     else let m' = joinM m (identityM n)
+--                          in Just $ dropM 0 n (fst (eliminateAllColumnsDown m'))
