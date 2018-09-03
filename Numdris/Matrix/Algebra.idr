@@ -126,15 +126,15 @@ eigenvalue m v = dot v (multiplyVect m v)
 
 ||| estimate the eigenvector of a matrix
 eigenvector : Matrix n n Double -> (precision : Double) -> (seed : Vect n Double) -> List (Vect n Double) -> Vect n Double
-eigenvector A precision seed previous {n} = if err < precision
+eigenvector m precision seed previous {n} = if err < precision
                                         then result
-                                        else eigenvector A precision result previous where
+                                        else eigenvector m precision result previous where
                                         result' : Vect n Double
                                         result' = (orthorgonalizeAll {len=n}) seed previous
                                         result : Vect n Double
-                                        result = normalize $ multiplyVect A result'
+                                        result = normalize $ multiplyVect m result'
                                         err : Double
-                                        err = case compare (eigenvalue A result) 0 of
+                                        err = case compare (eigenvalue m result) 0 of
                                               GT => norm (subtract result' result)
                                               LT => norm (add result' result)
 
@@ -253,7 +253,6 @@ productAlongColumn m col = Util.product $ getColumn col m
 ||| Neg instance for Matrix
 [MatrixNeg] (Field t, Neg t) => Neg (Matrix r c t) where
     (-) = zipMWith (-)
-    abs = iterateM abs
     negate = iterateM negate
 
 ||| Ord instance for Matrix

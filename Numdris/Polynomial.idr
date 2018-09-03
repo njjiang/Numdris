@@ -14,12 +14,12 @@ import Data.Complex
 ||| head of the coefficients is the constant term
 ||| we only work with coefficients of type Double
 record Polynomial where
-       constructor withCoefficients
+       constructor WithCoefficients
        coefficients : List Double
 
 Show Polynomial where
-     show (withCoefficients []) = "0"
-     show (withCoefficients coeff) = showPolynomial $ filter (\(n,c) => c /= 0.0)(zip (natRange (length coeff)) coeff) where
+     show (WithCoefficients []) = "0"
+     show (WithCoefficients coeff) = showPolynomial $ filter (\(n,c) => c /= 0.0)(zip (natRange (length coeff)) coeff) where
                                      showTerm : (Nat, Double) -> String
                                      showTerm (Z, c) = show c
                                      showTerm (n, c) = let scale = if (c == 1.0) then "" else show c
@@ -35,15 +35,15 @@ zipWithExtend f (x::xs) (y::ys) = f x y :: zipWithExtend f xs ys
 
 ||| trim the trailing zero coefficients
 trim : Polynomial -> Polynomial
-trim (withCoefficients coeff) = withCoefficients $ reverse $ dropWhile (== 0.0) (reverse coeff)
+trim (WithCoefficients coeff) = WithCoefficients $ reverse $ dropWhile (== 0.0) (reverse coeff)
 
 ||| generalize operations on polynomials
 zipWithP : (op : Double -> Double -> Double) -> Polynomial -> Polynomial -> Polynomial
-zipWithP op f g = withCoefficients $ zipWithExtend op (coefficients f) (coefficients g)
+zipWithP op f g = WithCoefficients $ zipWithExtend op (coefficients f) (coefficients g)
 
 ||| map an operation on each element of a polynomial
 mapP : (f : Double -> Double) -> Polynomial -> Polynomial
-mapP f (withCoefficients c) = withCoefficients $ map f c
+mapP f (WithCoefficients c) = WithCoefficients $ map f c
 
 ||| add two polynomials
 add : Polynomial -> Polynomial -> Polynomial
@@ -67,34 +67,34 @@ multiplyImpl x y = foldl (zipWithExtend (+)) [] distributey'
 
 ||| multiply two polynomials
 multiply : Polynomial -> Polynomial -> Polynomial
-multiply x y = let (withCoefficients c1) = trim x
-                   (withCoefficients c2) = trim y in
-                   withCoefficients $ multiplyImpl c1 c2
+multiply x y = let (WithCoefficients c1) = trim x
+                   (WithCoefficients c2) = trim y in
+                   WithCoefficients $ multiplyImpl c1 c2
 
 
 ||| degree of the polynomial
 degree : Polynomial -> Nat
 degree p with (trim p)
-    | withCoefficients coeff = pred (length coeff)
+    | WithCoefficients coeff = pred (length coeff)
 
 
 ||| check if a polynomial is null
 isNull : Polynomial -> Bool
-isNull (withCoefficients coeff) = 0 == (length coeff)
+isNull (WithCoefficients coeff) = 0 == (length coeff)
 
 ||| computes the value of a polynomialnomial function
 ||| @ f polynomial
 ||| @ x value of the variable
 eval : (f : Polynomial) -> (x : Double) -> Double
-eval (withCoefficients []) _ = 0.0
+eval (WithCoefficients []) _ = 0.0
 eval f x = let coeff = coefficients f
                xpow = map (pow x) (natRange (length coeff))
                in foldl1 (+) (zipWith (*) coeff xpow)
 
 differentiate : Polynomial -> Polynomial
-differentiate (withCoefficients c) = case c' of
-                                     Nil => withCoefficients []
-                                     (x::xs) => withCoefficients xs
+differentiate (WithCoefficients c) = case c' of
+                                     Nil => WithCoefficients []
+                                     (x::xs) => WithCoefficients xs
                                    where
                                    indexedc : List (Nat, Double)
                                    indexedc = indexedList c
@@ -105,7 +105,7 @@ differentiate (withCoefficients c) = case c' of
 
 
 integrate : Polynomial -> Polynomial
-integrate (withCoefficients c) = withCoefficients $ 0 :: map integrate' indexedc
+integrate (WithCoefficients c) = WithCoefficients $ 0 :: map integrate' indexedc
                                  where
                                  integrate' : (Nat, Double) -> Double
                                  integrate' (i,v) = let di = cast {to=Double} i in v/(di+1)
@@ -116,15 +116,16 @@ integrate (withCoefficients c) = withCoefficients $ 0 :: map integrate' indexedc
 Num Polynomial where
     (+) = add
     (*) = multiply
-    fromInteger x = let x' = (cast {to=Double} x) in withCoefficients [x']
+    fromInteger x = let x' = (cast {to=Double} x) in WithCoefficients [x']
 
 Neg Polynomial where
     (-) = subtract
     negate = mapP negate
+
+Abs Polynomial where
     abs = mapP abs
 
-
 Eq Polynomial where
-   (==) x y = let (withCoefficients c1) = trim x
-                  (withCoefficients c2) = trim y in
+   (==) x y = let (WithCoefficients c1) = trim x
+                  (WithCoefficients c2) = trim y in
                   c1 == c2

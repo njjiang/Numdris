@@ -23,7 +23,6 @@ Num t => Num (Vect len t) where
 
 Neg t => Neg (Vect len t) where
     (-) = zipWith (-)
-    abs = map abs
     negate = map negate
 
 

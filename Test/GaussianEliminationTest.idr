@@ -7,7 +7,7 @@ import Numdris.Matrix
 import Numdris.Matrix.Algebra
 import Numdris.Matrix.GaussianElimination
 import Numdris.Field
-import Numdris.Vector
+import Numdris.Vect.Util
 
 %access export
 %default partial
