@@ -1,6 +1,6 @@
 # Numdris
 
-Numdris is a linear algebra library in Idris. 
+Numdris is a linear algebra library in Idris. Here is the [IdrisDoc](https://njjiang.github.io/Numdris/).
 
 
  ## Build
