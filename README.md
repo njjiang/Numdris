@@ -10,7 +10,7 @@ Numdris is a linear algebra library in Idris. Here is the [IdrisDoc](https://njj
  ```
 
  ## Test
- First, install [specdris](https://github.com/pheymann/specdris) to run the Numdris tests.
+ First, install [specdris](https://github.com/pheymann/specdris.
  Then
  ```bash
  $ make test
