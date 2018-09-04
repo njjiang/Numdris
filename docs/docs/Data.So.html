@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>IdrisDoc: Data.So</title><link type="text/css" rel="stylesheet" href="../styles.css"></head><body class="namespace"><div class="wrapper"><header><strong>IdrisDoc</strong>: Data.So<nav><a href="../index.html">Index</a></nav></header><div class="container"><h1>Data.So</h1><dl class="decls"><dt id="Data.So.choose"><span class="name function" title="Data.So.choose">choose</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">b</span> : <a class="type" title="Prelude.Bool.Bool" href="Prelude.Bool.html#Prelude.Bool.Bool">Bool</a>) ->
+<a class="type" title="Prelude.Either.Either" href="Prelude.Either.html#Prelude.Either.Either">Either</a> (<a class="type" title="Data.So.So" href="Data.So.html#Data.So.So">So</a> <span class="boundvar" title="">b</span>)
+(<a class="type" title="Data.So.So" href="Data.So.html#Data.So.So">So</a> (<a class="function" title="Prelude.Bool.not" href="Prelude.Bool.html#Prelude.Bool.not">not</a> <span class="boundvar" title="">b</span>))</span></dt><dd><p>Perform a case analysis on a Boolean, providing clients with a <code>So</code> proof</p>
+</dd><dt id="Data.So.So"><span class="word">data&nbsp;</span><span class="name type" title="Data.So.So">So</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Bool.Bool" href="Prelude.Bool.html#Prelude.Bool.Bool">Bool</a> ->
+<span class="type" title="Type">Type</span></span></dt><dd><p>Ensure that some run-time Boolean test has been performed.</p>
+<p>This lifts a Boolean predicate to the type level. See the function <code>choose</code><br />
+if you need to perform a Boolean test and convince the type checker of this<br />
+fact.</p>
+<p>If you find yourself using <code>So</code> for something other than primitive types,<br />
+it may be appropriate to define a type of evidence for the property that you<br />
+care about instead.</p>
+<dl class="decls"><dt id="Data.So.Oh"><span class="name constructor" title="Data.So.Oh">Oh</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.So.So" href="Data.So.html#Data.So.So">So</a> <a class="constructor" title="Prelude.Bool.True" href="Prelude.Bool.html#Prelude.Bool.True">True</a></span></dt><dd></dd></dl></dd></dl></div></div><footer>Produced by IdrisDoc version 1.0</footer></body></html>

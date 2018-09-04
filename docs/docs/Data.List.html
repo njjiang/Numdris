@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>IdrisDoc: Data.List</title><link type="text/css" rel="stylesheet" href="../styles.css"></head><body class="namespace"><div class="wrapper"><header><strong>IdrisDoc</strong>: Data.List<nav><a href="../index.html">Index</a></nav></header><div class="container"><h1>Data.List</h1><dl class="decls"><dt id="Data.List.tailMismatch"><span class="name function" title="Data.List.tailMismatch">tailMismatch</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<span class="implicit boundvar" title="">this</span> <a class="type" title="=" href="[builtins].html#=">=</a>
+<span class="implicit boundvar" title="">that</span>) ->
+<a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<a class="constructor" title="Data.List.There" href="Data.List.html#Data.List.There">There</a> <span class="implicit boundvar" title="">this</span> <a class="type" title="=" href="[builtins].html#=">=</a>
+<a class="constructor" title="Data.List.There" href="Data.List.html#Data.List.There">There</a> <span class="implicit boundvar" title="">that</span>)</span></dt><dd><p>If the tails don't match, neither will references to them.</p>
+</dd><dt id="Data.List.neitherHereNorThere"><span class="name function" title="Data.List.neitherHereNorThere">neitherHereNorThere</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<span class="implicit boundvar" title="">x</span> <a class="type" title="=" href="[builtins].html#=">=</a>
+<span class="implicit boundvar" title="">y</span>) ->
+<a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+<span class="implicit boundvar" title="">xs</span>) ->
+<a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+(<span class="implicit boundvar" title="">y</span> <a class="constructor" title="Prelude.List.::" href="Prelude.List.html#Prelude.List.::">::</a>
+<span class="implicit boundvar" title="">xs</span>))</span></dt><dd><p>An item not in the head and not in the tail is not in the List at all</p>
+</dd><dt id="Data.List.isElem"><span class="name function" title="Data.List.isElem">isElem</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Decidable.Equality.DecEq" href="Decidable.Equality.html#Decidable.Equality.DecEq">DecEq</a> <span class="implicit boundvar" title="">a</span> =>
+(<span class="documented boundvar" title="The element to be tested.">x</span> : <span class="implicit boundvar" title="">a</span>) ->
+(<span class="documented boundvar" title="The list to be checked against">xs</span> : <a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span>) ->
+<a class="type" title="Prelude.Basics.Dec" href="Prelude.Basics.html#Prelude.Basics.Dec">Dec</a> (<a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="documented boundvar" title="The element to be tested.">x</span>
+<span class="documented boundvar" title="The list to be checked against">xs</span>)</span></dt><dd><p>Is the given element a member of the given list.</p>
+<dl><dt>x</dt><dd><p>The element to be tested.</p>
+</dd><dt>xs</dt><dd><p>The list to be checked against</p>
+</dd></dl></dd><dt id="Data.List.intersectBy"><span class="name function" title="Data.List.intersectBy">intersectBy</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="implicit boundvar" title="">a</span> ->
+<span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.Bool.Bool" href="Prelude.Bool.html#Prelude.Bool.Bool">Bool</a>) ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span></span></dt><dd><p>The intersectBy function returns the intersect of two lists by user-supplied equality predicate.</p>
+</dd><dt id="Data.List.intersect"><span class="name function" title="Data.List.intersect">intersect</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Eq" href="Prelude.Interfaces.html#Prelude.Interfaces.Eq">Eq</a> <span class="implicit boundvar" title="">a</span> =>
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span></span></dt><dd><p>Compute the intersection of two lists according to their <code>Eq</code> implementation.</p>
+<pre class="idris"><code>intersect [1, 2, 3, 4] [2, 4, 6, 8]
+</code></pre>
+</dd><dt id="Data.List.hereIsNotThere"><span class="name function" title="Data.List.hereIsNotThere">hereIsNotThere</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="function" title="Prelude.Basics.Not" href="Prelude.Basics.html#Prelude.Basics.Not">Not</a> (<a class="constructor" title="Data.List.Here" href="Data.List.html#Data.List.Here">Here</a> <a class="type" title="=" href="[builtins].html#=">=</a>
+<a class="constructor" title="Data.List.There" href="Data.List.html#Data.List.There">There</a> <span class="implicit boundvar" title="">later</span>)</span></dt><dd><p><code>Here</code> will never equal <code>There</code>.</p>
+</dd><dt id="Data.List.dropElem"><span class="name function" title="Data.List.dropElem">dropElem</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="The list to be removed from">xs</span> : <a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span>) ->
+(<span class="documented boundvar" title="A proof that the element to be removed is in the list">p</span> : <a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+<span class="documented boundvar" title="The list to be removed from">xs</span>) ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span></span></dt><dd><p>Remove the element at the given position.</p>
+<dl><dt>xs</dt><dd><p>The list to be removed from</p>
+</dd><dt>p</dt><dd><p>A proof that the element to be removed is in the list</p>
+</dd></dl></dd><dt id="Data.List.Elem"><span class="word">data&nbsp;</span><span class="name type" title="Data.List.Elem">Elem</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><span class="implicit boundvar" title="">a</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">a</span> ->
+<span class="type" title="Type">Type</span></span></dt><dd><p>A proof that some element is found in a list.</p>
+<p>Example: <code>the (Elem &quot;bar&quot; [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;]) (tactics { search })</code></p>
+<dl class="decls"><dt id="Data.List.Here"><span class="name constructor" title="Data.List.Here">Here</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+(<span class="implicit boundvar" title="">x</span> <a class="constructor" title="Prelude.List.::" href="Prelude.List.html#Prelude.List.::">::</a>
+<span class="implicit boundvar" title="">xs</span>)</span></dt><dd><p>A proof that the element is at the front of the list.</p>
+<p>Example: <code>the (Elem &quot;a&quot; [&quot;a&quot;, &quot;b&quot;]) Here</code></p>
+</dd><dt id="Data.List.There"><span class="name constructor" title="Data.List.There">There</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">later</span> : <a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+<span class="implicit boundvar" title="">xs</span>) ->
+<a class="type" title="Data.List.Elem" href="Data.List.html#Data.List.Elem">Elem</a> <span class="implicit boundvar" title="">x</span>
+(<span class="implicit boundvar" title="">y</span> <a class="constructor" title="Prelude.List.::" href="Prelude.List.html#Prelude.List.::">::</a>
+<span class="implicit boundvar" title="">xs</span>)</span></dt><dd><p>A proof that the element is after the front of the list</p>
+<p>Example: <code>the (Elem &quot;b&quot; [&quot;a&quot;, &quot;b&quot;]) (There Here)</code></p>
+</dd></dl></dd></dl></div></div><footer>Produced by IdrisDoc version 1.0</footer></body></html>

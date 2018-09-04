@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>IdrisDoc: Numdris.Vect.Util</title><link type="text/css" rel="stylesheet" href="../styles.css"></head><body class="namespace"><div class="wrapper"><header><strong>IdrisDoc</strong>: Numdris.Vect.Util<nav><a href="../index.html">Index</a></nav></header><div class="container"><h1>Numdris.Vect.Util</h1><dl class="decls"><dt id="Numdris.Vect.Util.zeros"><span class="name function" title="Numdris.Vect.Util.zeros">zeros</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="length of the vector to initialize">len</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="documented boundvar" title="length of the vector to initialize">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>initialize a vector of some length filled with zeros</p>
+<dl><dt>len</dt><dd><p>length of the vector to initialize</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.transpose"><span class="name function" title="Numdris.Vect.Util.transpose">transpose</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the column vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+(<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="function" title="Prelude.Interfaces.fromInteger" href="Prelude.Interfaces.html#Prelude.Interfaces.fromInteger">fromInteger</a> <span class="data" title="1">1</span>)
+<span class="implicit boundvar" title="">t</span>)</span></dt><dd><p>transpose a column vector to a row vector</p>
+<dl><dt>v</dt><dd><p>the column vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.sum"><span class="name function" title="Numdris.Vect.Util.sum">sum</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>calculate the sum of a vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.subtract"><span class="name function" title="Numdris.Vect.Util.subtract">subtract</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Neg" href="Prelude.Interfaces.html#Prelude.Interfaces.Neg">Neg</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>v1 - v2</p>
+</dd><dt id="Numdris.Vect.Util.scale"><span class="name function" title="Numdris.Vect.Util.scale">scale</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="scalar">c</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>multiply a vector by some scalar</p>
+<dl><dt>c</dt><dd><p>scalar</p>
+</dd><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.product"><span class="name function" title="Numdris.Vect.Util.product">product</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>calculate the product of a vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.pad"><span class="name function" title="Numdris.Vect.Util.pad">pad</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="original vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the element to pad with">elem</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the length of padding">padLen</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<span class="implicit boundvar" title="">len</span> <a class="function" title="Prelude.Interfaces.+" href="Prelude.Interfaces.html#Prelude.Interfaces.+">+</a>
+<span class="documented boundvar" title="the length of padding">padLen</span>)
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>pad a vector with some element for some length at the end</p>
+<dl><dt>v</dt><dd><p>original vector</p>
+</dd><dt>elem</dt><dd><p>the element to pad with</p>
+</dd><dt>padLen</dt><dd><p>the length of padding</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.outer"><span class="name function" title="Numdris.Vect.Util.outer">outer</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Numdris.Field.Field" href="Numdris.Field.html#Numdris.Field.Field">Field</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="first vector">v1</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len1</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="second vector">v2</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len2</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len1</span>
+(<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len2</span>
+<span class="implicit boundvar" title="">t</span>)</span></dt><dd><p>take the outer product of two vectors</p>
+<dl><dt>v1</dt><dd><p>first vector</p>
+</dd><dt>v2</dt><dd><p>second vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.orthorgonalizeAll"><span class="name function" title="Numdris.Vect.Util.orthorgonalizeAll">orthorgonalizeAll</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span> ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> (<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span></span></dt><dd><p>make the current vector orthorgonalize to a list of vectors</p>
+</dd><dt id="Numdris.Vect.Util.orthorgonalize"><span class="name function" title="Numdris.Vect.Util.orthorgonalize">orthorgonalize</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span></span></dt><dd><p>make two vectors orthorgonal<br />
+w - v (v dot w)/(v dot v)</p>
+</dd><dt id="Numdris.Vect.Util.ones"><span class="name function" title="Numdris.Vect.Util.ones">ones</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="length of the vector to initialize">len</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="documented boundvar" title="length of the vector to initialize">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>initialize a vector of some length filled with ones</p>
+<dl><dt>len</dt><dd><p>length of the vector to initialize</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.normalize"><span class="name function" title="Numdris.Vect.Util.normalize">normalize</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span></span></dt><dd><p>normalize a vector</p>
+</dd><dt id="Numdris.Vect.Util.norm"><span class="name function" title="Numdris.Vect.Util.norm">norm</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span> ->
+<span class="type" title="Double">Double</span></span></dt><dd><p>compute the norm/length of a vector</p>
+</dd><dt id="Numdris.Vect.Util.natRangeVect"><span class="name function" title="Numdris.Vect.Util.natRangeVect">natRangeVect</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">n</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="boundvar" title="">n</span>
+<a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a></span></dt><dd></dd><dt id="Numdris.Vect.Util.min"><span class="name function" title="Numdris.Vect.Util.min">min</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>find the min element in some non-empty vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.mean"><span class="name function" title="Numdris.Vect.Util.mean">mean</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)
+<span class="type" title="Double">Double</span>) ->
+<span class="type" title="Double">Double</span></span></dt><dd><p>calculate the mean of an nonempty vector</p>
+</dd><dt id="Numdris.Vect.Util.max"><span class="name function" title="Numdris.Vect.Util.max">max</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>find the max element in some non-empty vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.inner"><span class="name function" title="Numdris.Vect.Util.inner">inner</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">v1</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="boundvar" title="">v2</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.Vect.Util.initVector"><span class="name function" title="Numdris.Vect.Util.initVector">initVector</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="length of the vector to initialize">len</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+(<span class="documented boundvar" title="the initial element">initElem</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="documented boundvar" title="length of the vector to initialize">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>initialize a vector of some length filled with some element</p>
+<dl><dt>len</dt><dd><p>length of the vector to initialize</p>
+</dd><dt>initElem</dt><dd><p>the initial element</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.indexed"><span class="name function" title="Numdris.Vect.Util.indexed">indexed</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">n</span>
+<span class="implicit boundvar" title="">t</span> ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">n</span>
+<a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">(</a><a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="implicit boundvar" title="">n</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">,</a>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.Pair" href="Builtins.html#Builtins.Pair">)</a></span></dt><dd></dd><dt id="Numdris.Vect.Util.fins"><span class="name function" title="Numdris.Vect.Util.fins">fins</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="documented boundvar" title="length of the vector">n</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="documented boundvar" title="length of the vector">n</span>
+(<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> <span class="documented boundvar" title="length of the vector">n</span>)</span></dt><dd><p>get a vector of indices/fins of length n</p>
+<dl><dt>n</dt><dd><p>length of the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.dot"><span class="name function" title="Numdris.Vect.Util.dot">dot</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="first vector">v1</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="second vector">v2</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>take the inner/dot product of two vectors</p>
+<dl><dt>v1</dt><dd><p>first vector</p>
+</dd><dt>v2</dt><dd><p>second vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.divide"><span class="name function" title="Numdris.Vect.Util.divide">divide</span><span class="word">&nbsp;:&nbsp;</span><span class="signature">(<span class="boundvar" title="">v1</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span>) ->
+(<span class="boundvar" title="">v2</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="type" title="Double">Double</span></span></dt><dd><p>compute pointwise v1 / v2</p>
+</dd><dt id="Numdris.Vect.Util.argmin"><span class="name function" title="Numdris.Vect.Util.argmin">argmin</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)</span></dt><dd><p>find the index of the min element in some non-empty vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.argmax"><span class="name function" title="Numdris.Vect.Util.argmax">argmax</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the vector">v</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Fin.Fin" href="Data.Fin.html#Data.Fin.Fin">Fin</a> (<a class="constructor" title="Prelude.Nat.S" href="Prelude.Nat.html#Prelude.Nat.S">S</a> <span class="implicit boundvar" title="">n</span>)</span></dt><dd><p>find the index of the max element in some non-empty vector</p>
+<dl><dt>v</dt><dd><p>the vector</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.arangelist"><span class="name function" title="Numdris.Vect.Util.arangelist">arangelist</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="boundvar" title="">start</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="boundvar" title="">end</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="boundvar" title="">step</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Prelude.List.List" href="Prelude.List.html#Prelude.List.List">List</a> <span class="implicit boundvar" title="">t</span></span></dt><dd></dd><dt id="Numdris.Vect.Util.arange"><span class="name function" title="Numdris.Vect.Util.arange">arange</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Ord" href="Prelude.Interfaces.html#Prelude.Interfaces.Ord">Ord</a> <span class="implicit boundvar" title="">t</span> =>
+<a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="the start of the range">start</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the end of the range">end</span> : <span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="the difference between two elementadds two natural numberss">step</span> : <span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Builtins.DPair" href="Builtins.html#Builtins.DPair">(</a><span class="boundvar" title="">p</span> : <a class="type" title="Prelude.Nat.Nat" href="Prelude.Nat.html#Prelude.Nat.Nat">Nat</a> <a class="type" title="Builtins.DPair" href="Builtins.html#Builtins.DPair">**</a>
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="boundvar" title="">p</span>
+<span class="implicit boundvar" title="">t</span><a class="type" title="Builtins.DPair" href="Builtins.html#Builtins.DPair">)</a></span></dt><dd><p>initialize a vector filled with data from start up to end, each differ by step</p>
+<dl><dt>start</dt><dd><p>the start of the range</p>
+</dd><dt>end</dt><dd><p>the end of the range</p>
+</dd><dt>step</dt><dd><p>the difference between two elementadds two natural numberss</p>
+</dd></dl></dd><dt id="Numdris.Vect.Util.add"><span class="name function" title="Numdris.Vect.Util.add">add</span><span class="word">&nbsp;:&nbsp;</span><span class="signature"><a class="type" title="Prelude.Interfaces.Num" href="Prelude.Interfaces.html#Prelude.Interfaces.Num">Num</a> <span class="implicit boundvar" title="">t</span> =>
+(<span class="documented boundvar" title="first vector">v1</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+(<span class="documented boundvar" title="second vector">v2</span> : <a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span>) ->
+<a class="type" title="Data.Vect.Vect" href="Data.Vect.html#Data.Vect.Vect">Vect</a> <span class="implicit boundvar" title="">len</span>
+<span class="implicit boundvar" title="">t</span></span></dt><dd><p>add two vectors together</p>
+<dl><dt>v1</dt><dd><p>first vector</p>
+</dd><dt>v2</dt><dd><p>second vector</p>
+</dd></dl></dd></dl></div></div><footer>Produced by IdrisDoc version 1.0</footer></body></html>
